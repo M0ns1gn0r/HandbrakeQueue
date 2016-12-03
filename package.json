@@ -1,0 +1,14 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "author": "Monsignor",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  }
+}
