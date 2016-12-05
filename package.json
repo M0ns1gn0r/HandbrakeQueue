@@ -4,7 +4,7 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron src/App.js",
     "typings": "typings"
   },
   "repository": "https://github.com/electron/electron-quick-start",
@@ -12,5 +12,8 @@
   "devDependencies": {
     "electron": "^1.4.1",
     "typings": "^2.0.0"
+  },
+  "dependencies": {
+    "typescript": "^2.0.10"
   }
 }
