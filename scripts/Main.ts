@@ -20,10 +20,10 @@ export default class Main {
         const w = new Main.BrowserWindow({width: 800, height: 600});
         
         Main.mainWindow = w;
-        w.loadURL('file://' + __dirname + '/../html/index.html');
+        w.loadURL('file://' + __dirname + '/../index.html');
         w.on('closed', Main.onClose);
 
-        // Open the DevTools.        
+        // Open the DevTools.
         w.webContents.openDevTools({ detach: true });
 
         // Disable main menu.
