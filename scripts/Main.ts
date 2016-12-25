@@ -24,7 +24,7 @@ export default class Main {
         w.on('closed', Main.onClose);
 
         // Open the DevTools.        
-        w.webContents.openDevTools();
+        w.webContents.openDevTools({ detach: true });
 
         // Disable main menu.
         w.setMenu(null);

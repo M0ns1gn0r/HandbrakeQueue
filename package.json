@@ -11,9 +11,7 @@
   "author": "Monsignor",
   "devDependencies": {
     "electron": "^1.4.1",
-    "typings": "^2.0.0"
-  },
-  "dependencies": {
-    "typescript": "^2.0.10"
+    "typings": "^2.0.0",
+    "typescript": "^2.1.4"
   }
 }
