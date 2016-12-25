@@ -1,6 +1,6 @@
-import { BrowserWindow } from 'electron';
+import { app, BrowserWindow } from 'electron';
 
-export default class Main {
+class Main {
     static mainWindow: Electron.BrowserWindow;
     static application: Electron.App;
     static BrowserWindow: typeof BrowserWindow;
@@ -42,3 +42,5 @@ export default class Main {
         app.on('ready', Main.onReady);
     }
 }
+
+Main.main(app, BrowserWindow);

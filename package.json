@@ -4,7 +4,7 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron compiled/App.js",
+    "start": "electron compiled/Main.js",
     "typings": "typings"
   },
   "repository": "https://github.com/electron/electron-quick-start",
