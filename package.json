@@ -1,17 +1,36 @@
 {
-  "name": "electron-quick-start",
+  "name": "handbrake-playlist",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "description": "A utility to create playlist for Handbrake encoder.",
+  "main": "electron.js",
   "scripts": {
-    "start": "electron compiled/Main.js",
-    "typings": "typings"
+    "start": "electron compiled/electron.js",
+    "typings": "typings",
+    "lint": "tslint ./app/**/*.ts -t verbose"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "author": "Monsignor",
-  "devDependencies": {
+  "dependencies": {
     "electron": "^1.4.1",
+
+    "@angular/common": "~2.4.0",
+    "@angular/compiler": "~2.4.0",
+    "@angular/core": "~2.4.0",
+    "@angular/forms": "~2.4.0",
+    "@angular/http": "~2.4.0",
+    "@angular/platform-browser": "~2.4.0",
+    "@angular/platform-browser-dynamic": "~2.4.0",
+    "@angular/router": "~3.4.0",
+
+    "systemjs": "0.19.40",
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.1",
+    "zone.js": "^0.7.4"
+  },
+  "devDependencies": {
+    "typescript": "^2.1.4",
     "typings": "^2.0.0",
-    "typescript": "^2.1.4"
+    "tslint": "^3.15.1"
   }
 }
