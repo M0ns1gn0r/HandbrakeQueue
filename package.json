@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron compiled/electron.js",
     "typings": "typings",
-    "lint": "tslint ./app/**/*.ts -t verbose"
+    "lint": "tslint ./scripts/**/*.ts -t verbose"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "author": "Monsignor",

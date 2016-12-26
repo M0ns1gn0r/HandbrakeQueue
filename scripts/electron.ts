@@ -18,7 +18,7 @@ class Main {
 
     private static onReady() {
         const w = new Main.BrowserWindow({width: 800, height: 600});
-        
+
         Main.mainWindow = w;
         w.loadURL('file://' + __dirname + '/../index.html');
         w.on('closed', Main.onClose);
@@ -30,7 +30,7 @@ class Main {
         w.setMenu(null);
     }
 
-    static main(app: Electron.App, browserWindow: typeof BrowserWindow){
+    static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
         // we pass the Electron.App object and the
         // Electron.BrowserWindow into this function
         // so this class has no dependencies.  This
