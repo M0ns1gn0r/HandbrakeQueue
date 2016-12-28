@@ -5,7 +5,7 @@
   "main": "electron.js",
   "scripts": {
     "start": "electron compiled/electron.js",
-    "typings": "typings",
+    "compile": "tsc",
     "lint": "tslint ./scripts/**/*.ts -t verbose"
   },
   "repository": "https://github.com/electron/electron-quick-start",

@@ -6,12 +6,17 @@
   System.config({
     paths: {
       // paths serve as alias
-      'npm:': 'node_modules/'
+      'npm:': 'node_modules/',
+      'node:': 'compiled/node-re-exports/'
     },
     // map tells the System loader where to look for things
     map: {
       // our app is within the compiled folder
       app: 'compiled',
+
+      // Re-exports of Node.js modules.
+      fs: 'node:fs',
+      electron: 'node:electron',
 
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
