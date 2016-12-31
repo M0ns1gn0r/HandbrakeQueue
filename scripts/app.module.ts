@@ -3,8 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from './app.component';
 
+import { FileDropModule } from './angular2-file-drop/file-drop-module';
+
 @NgModule({
-  imports:      [ BrowserModule ],
+  imports:      [ BrowserModule, FileDropModule ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ]
 })

@@ -1,16 +1,37 @@
-import { Component } from '@angular/core';
-import { clipboard } from 'electron';
-import { existsSync } from 'fs';
+import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  template: `<h1>Hello {{name}}</h1>`,
+  template: `
+  <style> .file-is-over { background-color: red; } </style>
+  <h1>
+    Hello {{name}}
+  </h1>
+  <div
+      style="background-color: blue;" 
+      fileDrop
+      [ngClass]="{'file-is-over': fileIsOver}"
+      [options]="options"
+      (fileOver)="fileOver($event)"
+      (onFileDrop)="onFileDrop($event)">
+      Drop file here
+    </div>`, 
 })
 export class AppComponent {
   name = 'Angular';
+  fileIsOver = false;
 
-  constructor() {
-      const text = existsSync("c:\\boot.txt") ? "exists" : "does not exist";
-      clipboard.write({ text: text });
+  @Output() options = {
+    readAs: 'ArrayBuffer'
   };
+
+  private file: File;
+
+  fileOver(fileIsOver: boolean): void {
+    this.fileIsOver = fileIsOver;
+  }
+
+  onFileDrop(file: File): void {
+    console.log('Got file!');
+  }
 }

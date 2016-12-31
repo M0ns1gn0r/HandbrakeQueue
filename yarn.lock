@@ -284,6 +284,10 @@ fd-slicer@~1.0.1:
   dependencies:
     pend "~1.2.0"
 
+fileapi@^2.0.21:
+  version "2.0.21"
+  resolved "https://registry.yarnpkg.com/fileapi/-/fileapi-2.0.21.tgz#e8f01b408005147a8426e9247f7c064b581ded2d"
+
 find-up@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-1.1.2.tgz#6b2e9822b1a2ce0a60ab64d610eccad53cb24d0f"
