@@ -1,0 +1,24 @@
+body 
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+
+my-app // flex-container
+    height: 100%
+    display: flex
+    flex-direction: column
+    flex-wrap: nowrap
+    justify-content: flex-start
+    align-content: stretch
+    align-items: stretch
+
+.file-drop // flex-expanding-item
+    order: 0
+    flex: 1 1 auto
+    align-self: auto
+    background-color: blue
+
+.file-is-over
+    background-color: red

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "electron compiled/electron.js",
     "compile": "tsc",
+    "stylus": "stylus -w stylus/app.styl -o compiled/app.css",
     "lint": "tslint ./scripts/**/*.ts -t verbose"
   },
   "repository": "https://github.com/electron/electron-quick-start",
@@ -32,6 +33,7 @@
     "@types/electron": "^1.4.30",
     "@types/node": "^6.0.53",
     "tslint": "^3.15.1",
-    "typescript": "^2.1.4"
+    "typescript": "^2.1.4",
+    "stylus": "^0.54.5"
   }
 }

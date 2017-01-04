@@ -3,12 +3,11 @@ import { Component, Output } from '@angular/core';
 @Component({
   selector: 'my-app',
   template: `
-  <style> .file-is-over { background-color: red; } </style>
   <h1>
     Hello {{name}}
   </h1>
   <div
-      style="background-color: blue;" 
+      class="file-drop"
       fileDrop
       [ngClass]="{'file-is-over': fileIsOver}"
       [options]="options"
