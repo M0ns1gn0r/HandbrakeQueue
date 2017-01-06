@@ -6,27 +6,36 @@ import { Component, Output } from '@angular/core';
   <h1>
     Hello {{name}}
   </h1>
-  <div
+  <section
       class="file-drop"
       fileDrop
       [ngClass]="{'files-are-over': filesAreOver}"
       (filesOver)="filesOver($event)"
       (onFilesDrop)="onFilesDrop($event)">
-      Drop files here
-    </div>`, 
+      <p class="drop-request" *ngIf="!filesAreDropped">
+        Drop files here
+      </p>
+      <ul *ngIf="filesAreDropped">
+        <li *ngFor="let file of files">{{file.name}}</li>
+      </ul>
+    </section>`, 
 })
 export class AppComponent {
   name = 'Angular';
   filesAreOver = false;
-
-
-  private file: File;
+  filesAreDropped = false;
+  files: File[] = [];
 
   filesOver(filesOver: boolean): void {
     this.filesAreOver = filesOver;
   }
 
-  onFilesDrop(files: FileList): void {
-    console.log('Got files!', files);
+  onFilesDrop(fs: File[]): void {
+    this.filesAreDropped = true;
+    fs.forEach(newFile => {
+      if (!this.files.some(f => f.path === newFile.path)) {
+        this.files.push(newFile);
+      }
+    });
   }
 }
