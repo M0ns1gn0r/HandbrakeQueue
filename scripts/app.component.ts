@@ -9,28 +9,24 @@ import { Component, Output } from '@angular/core';
   <div
       class="file-drop"
       fileDrop
-      [ngClass]="{'file-is-over': fileIsOver}"
-      [options]="options"
-      (fileOver)="fileOver($event)"
-      (onFileDrop)="onFileDrop($event)">
-      Drop file here
+      [ngClass]="{'files-are-over': filesAreOver}"
+      (filesOver)="filesOver($event)"
+      (onFilesDrop)="onFilesDrop($event)">
+      Drop files here
     </div>`, 
 })
 export class AppComponent {
   name = 'Angular';
-  fileIsOver = false;
+  filesAreOver = false;
 
-  @Output() options = {
-    readAs: 'ArrayBuffer'
-  };
 
   private file: File;
 
-  fileOver(fileIsOver: boolean): void {
-    this.fileIsOver = fileIsOver;
+  filesOver(filesOver: boolean): void {
+    this.filesAreOver = filesOver;
   }
 
-  onFileDrop(file: File): void {
-    console.log('Got file!');
+  onFilesDrop(files: FileList): void {
+    console.log('Got files!', files);
   }
 }

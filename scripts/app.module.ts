@@ -1,13 +1,13 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FileDropDirective } from './file-drop';
+
 import { AppComponent }  from './app.component';
 
-import { FileDropModule } from './angular2-file-drop/file-drop-module';
-
 @NgModule({
-  imports:      [ BrowserModule, FileDropModule ],
-  declarations: [ AppComponent ],
+  imports:      [ BrowserModule, ],
+  declarations: [ AppComponent, FileDropDirective ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
