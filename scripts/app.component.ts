@@ -3,30 +3,32 @@ import { Component, Output } from '@angular/core';
 @Component({
   selector: 'my-app',
   template: `
-  <h1>
-    Hello {{name}}
-  </h1>
   <section
       class="file-drop"
       fileDrop
       [ngClass]="{'files-are-over': filesAreOver}"
-      (filesOver)="filesOver($event)"
-      (onFilesDrop)="onFilesDrop($event)">
+      (filesOver)="onFilesOver($event)"
+      (filesDrop)="onFilesDrop($event)">
       <p class="drop-request" *ngIf="!filesAreDropped">
         Drop files here
       </p>
       <ul *ngIf="filesAreDropped">
         <li *ngFor="let file of files">{{file.name}}</li>
       </ul>
-    </section>`, 
+    </section>
+    <button
+      class="create-button"
+      [disabled]="!filesAreDropped"
+      (click)="createQueue()">
+      Create queue
+    </button>`, 
 })
 export class AppComponent {
-  name = 'Angular';
   filesAreOver = false;
   filesAreDropped = false;
   files: File[] = [];
 
-  filesOver(filesOver: boolean): void {
+  onFilesOver(filesOver: boolean): void {
     this.filesAreOver = filesOver;
   }
 
@@ -37,5 +39,9 @@ export class AppComponent {
         this.files.push(newFile);
       }
     });
+  }
+
+  createQueue(): void {
+    console.log("Exported!");
   }
 }

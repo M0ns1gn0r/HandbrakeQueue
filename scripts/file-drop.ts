@@ -18,7 +18,7 @@ declare const FileAPI: any;
 @Directive({ selector: '[fileDrop]' })
 export class FileDropDirective {
   @Output() public filesOver = new EventEmitter<boolean>();
-  @Output() public onFilesDrop = new EventEmitter<File[]>();
+  @Output() public filesDrop = new EventEmitter<File[]>();
 
   public constructor(
     private element: ElementRef) {
@@ -90,7 +90,7 @@ export class FileDropDirective {
 
   private emitFilesDrop(files: FileList): void {
     const filesArray = Array.prototype.slice.call(files);
-    this.onFilesDrop.emit(filesArray);
+    this.filesDrop.emit(filesArray);
   }
 
   private preventAndStop(event: Event): void {
