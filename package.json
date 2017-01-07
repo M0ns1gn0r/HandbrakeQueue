@@ -1,7 +1,7 @@
 {
-  "name": "handbrake-playlist",
+  "name": "handbrake-queue",
   "version": "1.0.0",
-  "description": "A utility to create playlist for Handbrake encoder.",
+  "description": "A utility to create queue files for Handbrake encoder.",
   "main": "electron.js",
   "scripts": {
     "start": "electron compiled/electron.js",
