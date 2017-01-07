@@ -1,4 +1,5 @@
 import { Component, Output } from '@angular/core';
+import { QueueService } from './queueService';
 
 @Component({
   selector: 'my-app',
@@ -28,6 +29,10 @@ export class AppComponent {
   filesAreDropped = false;
   files: File[] = [];
 
+  constructor(private queueService: QueueService) {
+
+  }
+
   onFilesOver(filesOver: boolean): void {
     this.filesAreOver = filesOver;
   }
@@ -42,6 +47,7 @@ export class AppComponent {
   }
 
   createQueue(): void {
-    console.log("Exported!");
+    const queueXml = this.queueService.create(this.files);
+    console.log("Queue created.", queueXml);
   }
 }
