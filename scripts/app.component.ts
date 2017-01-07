@@ -1,4 +1,5 @@
 import { Component, Output } from '@angular/core';
+import { writeFileSync } from 'fs';
 import { QueueService } from './queueService';
 
 @Component({
@@ -48,6 +49,8 @@ export class AppComponent {
 
   createQueue(): void {
     const queueXml = this.queueService.create(this.files);
-    console.log("Queue created.", queueXml);
+
+    writeFileSync("d:\\output.hbq", queueXml);
+    console.log("Queue created.");
   }
 }
