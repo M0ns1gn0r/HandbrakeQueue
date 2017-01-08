@@ -9,88 +9,62 @@ import {
   ElementRef,
   HostListener,
   Output,
+  Input
 } from '@angular/core';
 
-import 'fileapi';
+//import 'fileapi';
 
-declare const FileAPI: any;
+//declare const FileAPI: any;
+
+import * as path from 'path';
 
 @Directive({ selector: '[fileDrop]' })
 export class FileDropDirective {
-  @Output() public filesOver = new EventEmitter<boolean>();
-  @Output() public filesDrop = new EventEmitter<File[]>();
+  /** A set of file extensions allowed to be dropped. Example: [".mp4", ".avi", ".mov"]. */
+  @Input() allowedExtensions = new Set<string>();
+  @Output() filesOver = new EventEmitter<boolean>();
+  @Output() filesDrop = new EventEmitter<File[]>();
 
-  public constructor(
+  constructor(
     private element: ElementRef) {
   }
 
-  @HostListener('dragover', [
-    '$event',
-  ])
-  public onDragOver(event: DragEvent): void {
+  @HostListener('dragover', [ '$event' ])
+  onDragOver(event: DragEvent) {
+    this.preventAndStop(event);
+
     const transfer = event.dataTransfer;
 
-    if (!this.hasFiles(transfer.types)) {
+    if (this.getAllowedFiles(transfer.files).length === 0) {
+      transfer.dropEffect='none';
       return;
     }
 
     transfer.dropEffect = 'copy';
-    this.preventAndStop(event);
-    this.emitFilesOver(true);
+    this.filesOver.emit(true);
   }
 
-  @HostListener('dragleave', [
-    '$event',
-  ])
-  public onDragLeave(event: DragEvent): void {
+  @HostListener('dragleave', [ '$event' ])
+  onDragLeave(event: DragEvent): void {
     if (event.currentTarget === this.element[0]) {
       return;
     }
-
+    
     this.preventAndStop(event);
-    this.emitFilesOver(false);
+    this.filesOver.emit(false);
   }
 
-  @HostListener('drop', [
-    '$event',
-  ])
-  public onDrop(event: DragEvent): void {
+  @HostListener('drop', [ '$event' ])
+  onDrop(event: DragEvent): void {
+    this.preventAndStop(event);
     const transfer = event.dataTransfer;
     if (!transfer) {
       return;
     }
+    const files = this.getAllowedFiles(transfer.files);
 
-    this.preventAndStop(event);
-    this.emitFilesOver(false);
-    this.emitFilesDrop(transfer.files);
-  }
-
-  // private readFile(file: File): void {
-  //   const strategy = this.pickStrategy();
-
-  //   if (!strategy) {
-  //     this.emitFilesDrop(file);
-  //   } else {
-  //     // XXX Waiting for angular/zone.js#358
-  //     const method = `readAs${strategy}`;
-
-  //     FileAPI[method](file, (event: any) => {
-  //       if (event.type === 'load') {
-  //         this.emitFilesDrop(event.result);
-  //       } else if (event.type === 'error') {
-  //         throw new Error(`Couldn't read file '${file.name}'`);
-  //       }
-  //     });
-  //   }
-  // }
-
-  private emitFilesOver(isOver: boolean): void {
-    this.filesOver.emit(isOver);
-  }
-
-  private emitFilesDrop(files: FileList): void {
-    const filesArray = Array.prototype.slice.call(files);
-    this.filesDrop.emit(filesArray);
+    this.filesOver.emit(false);
+    this.filesDrop.emit(files);
   }
 
   private preventAndStop(event: Event): void {
@@ -98,7 +72,14 @@ export class FileDropDirective {
     event.stopPropagation();
   }
 
-  private hasFiles(types: string[]): boolean {
-    return types && types.indexOf('Files') !== -1;
+  private getAllowedFiles(fileList: FileList): File[] {
+    const files: File[] = Array.prototype.slice.call(fileList);
+    if (this.allowedExtensions.size === 0) {
+      return files; // All files allowed.
+    }
+    return files.filter(f => {
+      const extension = path.extname(f.name).toLowerCase();
+      return this.allowedExtensions.has(extension);
+    });
   }
 }

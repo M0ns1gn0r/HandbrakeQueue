@@ -6,26 +6,28 @@ import { QueueService } from './queueService';
   selector: 'my-app',
   template: `
   <section
-      class="file-drop"
-      fileDrop
-      [ngClass]="{'files-are-over': filesAreOver}"
-      (filesOver)="onFilesOver($event)"
-      (filesDrop)="onFilesDrop($event)">
-      <p class="drop-request" *ngIf="!filesAreDropped">
-        Drop files here
-      </p>
-      <ul *ngIf="filesAreDropped">
-        <li *ngFor="let file of files">{{file.name}}</li>
-      </ul>
-    </section>
-    <button
-      class="create-button"
-      [disabled]="!filesAreDropped"
-      (click)="createQueue()">
-      Create queue
-    </button>`, 
+    class="file-drop"
+    fileDrop
+    [ngClass]="{'files-are-over': filesAreOver}"
+    [allowedExtensions]="allowedExtensions"
+    (filesOver)="onFilesOver($event)"
+    (filesDrop)="onFilesDrop($event)">
+    <p class="drop-request" *ngIf="!filesAreDropped">
+      Drop files here
+    </p>
+    <ul *ngIf="filesAreDropped">
+      <li *ngFor="let file of files">{{file.name}}</li>
+    </ul>
+  </section>
+  <button ondragstart="return false;" ondrop="return false;"
+    class="create-button"
+    [disabled]="!filesAreDropped"
+    (click)="createQueue()">
+    Create queue
+  </button>`, 
 })
 export class AppComponent {
+  allowedExtensions = new Set([".mp4", ".avi", ".mov", ".3gp"]);
   filesAreOver = false;
   filesAreDropped = false;
   files: File[] = [];

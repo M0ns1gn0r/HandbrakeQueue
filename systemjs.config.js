@@ -12,6 +12,7 @@
 
       // Re-exports of Node.js modules.
       fs: 'node:fs',
+      path: 'node:path',
       electron: 'node:electron',
 
       // angular bundles
