@@ -1,26 +1,25 @@
+import * as fs from 'fs';
 import { Component, Output } from '@angular/core';
-import { writeFileSync } from 'fs';
 import { QueueService } from './queueService';
+import { FileInfo } from './fileInfo';
 
 @Component({
   selector: 'my-app',
   template: `
   <section
-    class="file-drop"
+    class="hq-drop-area"
     fileDrop
-    [ngClass]="{'files-are-over': filesAreOver}"
+    [ngClass]="{'hq-drop-area--file-over': filesAreOver}"
     [allowedExtensions]="allowedExtensions"
     (filesOver)="onFilesOver($event)"
     (filesDrop)="onFilesDrop($event)">
-    <p class="drop-request" *ngIf="!filesAreDropped">
+    <p class="hq-drop-area_prompt" *ngIf="!filesAreDropped">
       Drop files here
     </p>
-    <ul *ngIf="filesAreDropped">
-      <li *ngFor="let file of files">{{file.name}}</li>
-    </ul>
+    <div class="hq-file" *ngFor="let file of files">{{file.name}} ({{file.size}})</div>
   </section>
-  <button ondragstart="return false;" ondrop="return false;"
-    class="create-button"
+  <button
+    class="hq-create-button"
     [disabled]="!filesAreDropped"
     (click)="createQueue()">
     Create queue
@@ -30,7 +29,7 @@ export class AppComponent {
   allowedExtensions = new Set([".mp4", ".avi", ".mov", ".3gp"]);
   filesAreOver = false;
   filesAreDropped = false;
-  files: File[] = [];
+  files: FileInfo[] = [];
 
   constructor(private queueService: QueueService) {
 
@@ -43,8 +42,8 @@ export class AppComponent {
   onFilesDrop(fs: File[]): void {
     this.filesAreDropped = true;
     fs.forEach(newFile => {
-      if (!this.files.some(f => f.path === newFile.path)) {
-        this.files.push(newFile);
+      if (!this.files.some(fi => fi.file.path === newFile.path)) {
+        this.files.push(new FileInfo(newFile));
       }
     });
   }
@@ -52,7 +51,7 @@ export class AppComponent {
   createQueue(): void {
     const queueXml = this.queueService.create(this.files);
 
-    writeFileSync("d:\\output.hbq", queueXml);
+    fs.writeFileSync("d:\\output.hbq", queueXml);
     console.log("Queue created.");
   }
 }
