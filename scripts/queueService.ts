@@ -1,22 +1,24 @@
-import { FileInfo } from './fileInfo';
+import { FileInfo } from './file-info';
 
 /** Represents a service that creates Handbrake Queues. */
 export class QueueService {
 
     create(files: FileInfo[]): string {
         const filesXml =
-            files.map(f => this.fileToXml(f)).reduce((prev, curr) => prev + curr, "");
+            files.map(f => this.fileToXml(f)).reduce((prev, curr) => prev + curr, '');
         return this.surroundWithRoot(filesXml);
     }
 
     private surroundWithRoot(inner: string) {
         return `<?xml version="1.0"?>
-<ArrayOfQueueTask xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${inner}
+<ArrayOfQueueTask
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${inner}
 </ArrayOfQueueTask>`;
     }
 
     private fileToXml(file: FileInfo) {
-        const detinationPath = file.path.slice(0, -file.name.length) + "encoded_" + file.name;
+        const detinationPath = file.path.slice(0, -file.name.length) + 'encoded_' + file.name;
 
         return `
     <QueueTask>

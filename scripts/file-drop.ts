@@ -12,10 +12,6 @@ import {
   Input
 } from '@angular/core';
 
-//import 'fileapi';
-
-//declare const FileAPI: any;
-
 import * as path from 'path';
 
 @Directive({ selector: '[fileDrop]' })
@@ -36,7 +32,7 @@ export class FileDropDirective {
     const transfer = event.dataTransfer;
 
     if (this.getAllowedFiles(transfer.files).length === 0) {
-      transfer.dropEffect='none';
+      transfer.dropEffect = 'none';
       return;
     }
 
@@ -49,7 +45,7 @@ export class FileDropDirective {
     if (event.currentTarget === this.element[0]) {
       return;
     }
-    
+
     this.preventAndStop(event);
     this.filesOver.emit(false);
   }
