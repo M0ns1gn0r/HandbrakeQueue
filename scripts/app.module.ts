@@ -2,7 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
-import { QueueService } from './queueService';
+import { QueueService } from './queue.service';
 import { FileDropDirective } from './file-drop';
 import { AppComponent }  from './app.component';
 import { DropAreaComponent }  from './drop-area.component';

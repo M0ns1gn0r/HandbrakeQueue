@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { Component } from '@angular/core';
-import { QueueService } from './queueService';
+import { QueueService } from './queue.service';
 import { FileInfo } from './file-info';
 
 @Component({
