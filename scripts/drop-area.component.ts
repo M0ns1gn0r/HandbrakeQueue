@@ -58,7 +58,7 @@ export class DropAreaComponent {
   createQueue(): void {
     const queueXml = this.queueService.create(this.files);
 
-    fs.writeFileSync('d:\\output.hbq', queueXml);
+    fs.writeFileSync('d:\\1\\output.hbq', queueXml);
     console.log('Queue created.');
   }
 }

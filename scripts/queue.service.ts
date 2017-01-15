@@ -18,7 +18,7 @@ export class QueueService {
     }
 
     private fileToXml(file: FileInfo) {
-        const detinationPath = file.path.slice(0, -file.name.length) + 'encoded_' + file.name;
+        const targetPath = file.config.targetPath;
 
         return `
     <QueueTask>
@@ -71,7 +71,7 @@ export class QueueService {
             <PointToPointMode>Chapters</PointToPointMode>
             <StartPoint>1</StartPoint>
             <EndPoint>1</EndPoint>
-            <Destination>${detinationPath}</Destination>
+            <Destination>${targetPath}</Destination>
             <OutputFormat>Mp4</OutputFormat>
             <Width>1920</Width>
             <Height>0</Height>
