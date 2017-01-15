@@ -18,7 +18,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports:      [ BrowserModule, RouterModule.forRoot(appRoutes) ],
+  imports:      [ BrowserModule, RouterModule.forRoot(appRoutes, { useHash: true }) ],
   providers:    [ QueueService, FileService ],
   declarations: [ AppComponent, DropAreaComponent, FileComponent, FileDropDirective ],
   bootstrap:    [ AppComponent ]
