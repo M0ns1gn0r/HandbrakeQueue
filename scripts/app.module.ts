@@ -3,7 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { QueueService } from './queue.service';
+import { FileService } from './file.service';
+
 import { FileDropDirective } from './file-drop';
+
 import { AppComponent }  from './app.component';
 import { DropAreaComponent }  from './drop-area.component';
 import { FileComponent }  from './file.component';
@@ -16,7 +19,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports:      [ BrowserModule, RouterModule.forRoot(appRoutes) ],
-  providers:    [ QueueService ],
+  providers:    [ QueueService, FileService ],
   declarations: [ AppComponent, DropAreaComponent, FileComponent, FileDropDirective ],
   bootstrap:    [ AppComponent ]
 })

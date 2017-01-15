@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { Component } from '@angular/core';
 import { QueueService } from './queue.service';
+import { FileService } from './file.service';
 import { FileInfo } from './file-info';
 
 @Component({
@@ -13,7 +14,7 @@ import { FileInfo } from './file-info';
       [allowedExtensions]="allowedExtensions"
       (filesOver)="onFilesOver($event)"
       (filesDrop)="onFilesDrop($event)">
-      <p class="hq-drop-area_prompt" *ngIf="!filesAreDropped">
+      <p class="hq-drop-area_prompt" *ngIf="!files.length">
         Drop files here
       </p>
       <div class="hq-file" *ngFor="let file of files; let idx = index">
@@ -24,7 +25,7 @@ import { FileInfo } from './file-info';
     </section>
     <button
       class="hq-create-button"
-      [disabled]="!filesAreDropped"
+      [disabled]="!files.length"
       (click)="createQueue()">
       Create queue
     </button>
@@ -33,11 +34,13 @@ import { FileInfo } from './file-info';
 export class DropAreaComponent {
   allowedExtensions = new Set(['.mp4', '.avi', '.mov', '.3gp']);
   filesAreOver = false;
-  filesAreDropped = false;
   files: FileInfo[] = [];
 
-  constructor(private queueService: QueueService) {
+  constructor(
+    fileService: FileService,
+    private queueService: QueueService) {
 
+    this.files = fileService.files;
   }
 
   onFilesOver(filesOver: boolean): void {
@@ -45,7 +48,6 @@ export class DropAreaComponent {
   }
 
   onFilesDrop(fs: File[]): void {
-    this.filesAreDropped = true;
     fs.forEach(newFile => {
       if (!this.files.some(fi => fi.file.path === newFile.path)) {
         this.files.push(new FileInfo(newFile));
