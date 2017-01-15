@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { QueueService } from './queue.service';
 import { FileService } from './file.service';
 
-import { FileDropDirective } from './file-drop';
+import { FileDropDirective } from './file-drop.directive';
 
 import { AppComponent }  from './app.component';
 import { DropAreaComponent }  from './drop-area.component';
