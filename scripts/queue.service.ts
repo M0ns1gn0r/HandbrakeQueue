@@ -1,4 +1,4 @@
-import { FileInfo } from './file-info';
+import { FileInfo, VideoSegment } from './file-info';
 
 /** Represents a service that creates Handbrake Queues. */
 export class QueueService {
@@ -17,8 +17,40 @@ export class QueueService {
 </ArrayOfQueueTask>`;
     }
 
+    private getVideoSegment(segment: VideoSegment) {
+        if (!segment.firstSecond && !segment.lastSecond) {
+            return `<PointToPointMode>Chapters</PointToPointMode>
+                <StartPoint>1</StartPoint>
+                <EndPoint>1</EndPoint>`;
+        }
+        return `<PointToPointMode>Seconds</PointToPointMode>
+            <StartPoint>${segment.firstSecond || 0}</StartPoint>
+            <EndPoint>${segment.lastSecond || 999999}</EndPoint>`;
+    }
+
+    private getRotation(rotate: number) {
+        if (!rotate) {
+            return "";
+        }
+
+        let rotateValue;
+        if (rotate === 90) {
+            rotateValue = 4;
+        } else if (rotate === -90) {
+            rotateValue = 7;
+        } else {
+            rotateValue = 3; // 180 degrees.
+        }
+
+        return `<ExtraAdvancedArguments>, --rotate=${rotateValue}</ExtraAdvancedArguments>`;
+    }
+
     private fileToXml(file: FileInfo) {
-        const targetPath = file.config.targetPath;
+        const c = file.config;
+        const targetPath = c.targetPath;
+        const videoSegment = this.getVideoSegment(c.segment);
+        const rotation = this.getRotation(c.rotate);
+        // TODO: take into account the selected preset.
 
         return `
     <QueueTask>
@@ -68,9 +100,7 @@ export class QueueService {
             <Source>${file.path}</Source>
             <Title>1</Title>
             <Angle>1</Angle>
-            <PointToPointMode>Chapters</PointToPointMode>
-            <StartPoint>1</StartPoint>
-            <EndPoint>1</EndPoint>
+            ${videoSegment}
             <Destination>${targetPath}</Destination>
             <OutputFormat>Mp4</OutputFormat>
             <Width>1920</Width>
@@ -113,6 +143,7 @@ export class QueueService {
             <H264Level>4.1</H264Level>
             <X264Tune>None</X264Tune>
             <FastDecode>false</FastDecode>
+            ${rotation}
             <X265Preset>VeryFast</X265Preset>
             <H265Profile>None</H265Profile>
             <X265Tune>None</X265Tune>

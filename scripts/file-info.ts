@@ -17,7 +17,7 @@ export class FileInfo {
 /** Various configuration options used for transcoding.  */
 export class TranscodeConfig {
   targetPath: string;
-  segment: { firstSecond?: number; lastSecond?: number } = {};
+  segment: VideoSegment = {};
   rotate: -90 | 0 | 90 | 180 = 0;
   preset: Preset = Preset.Canon9X;
 
@@ -36,4 +36,9 @@ export enum Preset {
   Canon9X = 1,
   IPad,
   Nikon
+}
+
+export interface VideoSegment {
+  firstSecond?: number;
+  lastSecond?: number
 }
