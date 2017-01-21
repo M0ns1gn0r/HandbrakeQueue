@@ -4,30 +4,7 @@ import { FileService } from './file.service';
 import { FileInfo, Preset } from './file-info';
 
 @Component({
-  template: `
-  <div>
-    <a routerLink="/drop-area">Back</a>
-    <br />
-    <br />
-    <section>
-      <div>
-        <strong>Target path:</strong>
-        <span>{{file.config.targetPath}}</span>
-      </div>
-      <div>
-        <strong>Segment:</strong>
-        <span>{{getSegmentInfo()}}</span>
-      </div>
-      <div>
-        <strong>Rotate:</strong>
-        <span>{{file.config.rotate === 0 ? 'No' : file.config.rotate + ' degrees'}}</span>
-      </div>
-      <div>
-        <strong>Preset:</strong>
-        <span>{{getPresetName()}}</span>
-      </div>
-    </section>
-  </div>`
+  templateUrl: 'scripts/file.component.html'
 })
 export class FileComponent implements OnInit {
   file: FileInfo;
@@ -55,16 +32,19 @@ export class FileComponent implements OnInit {
 
   getSegmentInfo(): string {
     const seg = this.file.config.segment;
-    if (!seg) {
+    if (!seg.firstSecond && !seg.lastSecond) {
       return 'Full video';
+    }
+    if (!seg.firstSecond) {
+      return `From the beginning till ${seg.lastSecond}-th second.`;
     }
     if (!seg.lastSecond) {
       return `From ${seg.firstSecond}-th second till the end.`;
     }
-    return `From the beginning till ${seg.lastSecond}-th second.`;
+    return `From ${seg.firstSecond}-th till ${seg.lastSecond}-th second.`;
   }
 
-  getPresetName(): string {
-    return Preset[this.file.config.preset];
+  getPresetName(preset: Preset): string {
+    return Preset[preset];
   }
 }

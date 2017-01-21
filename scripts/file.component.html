@@ -1,0 +1,40 @@
+<div>
+    <a routerLink="/drop-area">Back</a>
+    <br />
+    <br />
+    <form>
+        <div>
+            <strong>Target path:</strong>
+            <input name="targetPath" type="text"
+                style="width: 40em"
+                [(ngModel)]="file.config.targetPath">
+        </div>
+        <div>
+            <strong>Segment:</strong>
+            <span>{{getSegmentInfo()}}</span>
+            <br />
+            From <input name="segmentFirst" type="number"
+                style="width: 4em"
+                [(ngModel)]="file.config.segment.firstSecond">
+            till <input name="segmentLast" type="number"
+                style="width: 4em"
+                [(ngModel)]="file.config.segment.lastSecond">
+            second.
+        </div>
+        <div>
+            <strong>Rotate:</strong>
+            <br/>
+            <input name="rotate" type="radio" [value]="0"  [(ngModel)]="file.config.rotate">No<br/>
+            <input name="rotate" type="radio" [value]="-90" [(ngModel)]="file.config.rotate">-90 degrees<br/>
+            <input name="rotate" type="radio" [value]="90" [(ngModel)]="file.config.rotate">90 degrees<br/>
+            <input name="rotate" type="radio" [value]="180" [(ngModel)]="file.config.rotate">180 degrees
+        </div>
+        <div>
+            <strong>Preset:</strong>
+            <br/>
+            <input name="preset" type="radio" [value]="1" [(ngModel)]="file.config.preset">{{getPresetName(1)}}<br/>
+            <input name="preset" type="radio" [value]="2" [(ngModel)]="file.config.preset">{{getPresetName(2)}}<br/>
+            <input name="preset" type="radio" [value]="3" [(ngModel)]="file.config.preset">{{getPresetName(3)}}
+        </div>
+    </form>
+</div>
