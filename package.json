@@ -32,8 +32,10 @@
     "@types/core-js": "^0.9.35",
     "@types/electron": "^1.4.30",
     "@types/node": "^6.0.53",
+    "@types/videojs": "^0.0.31",
+    "stylus": "^0.54.5",
     "tslint": "^3.15.1",
     "typescript": "^2.1.4",
-    "stylus": "^0.54.5"
+    "video.js": "^5.16.0"
   }
 }

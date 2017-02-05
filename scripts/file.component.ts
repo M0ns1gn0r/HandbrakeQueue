@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from './file.service';
 import { FileInfo, Preset } from './file-info';
+import * as videojs from 'videojs';
 
 @Component({
   templateUrl: 'scripts/file.component.html'
@@ -27,6 +28,15 @@ export class FileComponent implements OnInit {
       }
 
       this.file = this.fileService.files[idx];
+
+      const playerOptions = {
+        sources: [{
+          src:  this.file.path,
+          type: 'video/mp4'
+        }],
+        fluid: false
+      };
+      videojs("video", playerOptions);
     });
   }
 

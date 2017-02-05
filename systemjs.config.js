@@ -27,7 +27,8 @@
 
       // other libraries
       'rxjs': 'npm:rxjs',
-      'fileapi': 'npm:fileapi/dist/fileapi.js'
+      'fileapi': 'npm:fileapi/dist/fileapi.js',
+      'videojs': 'npm:video.js/dist/video.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
