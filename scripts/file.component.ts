@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FileService } from './file.service';
-import { FileInfo, Preset } from './file-info';
+import { FileInfo, TranscodeConfig, Preset } from './file-info';
 import * as videojs from 'videojs';
 
 @Component({
@@ -9,8 +9,10 @@ import * as videojs from 'videojs';
 })
 export class FileComponent implements OnInit, OnDestroy {
   file: FileInfo;
+  private initialized = false;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private fileService: FileService) {
   }
@@ -24,11 +26,14 @@ export class FileComponent implements OnInit, OnDestroy {
       const idx = +idxString;
 
       if (this.fileService.files.length <= idx) {
-        throw new Error('The file with the passed "idx" parameter does not exist.');
+        console.warn('The file with the passed "idx" parameter does not exist.');
+        this.router.navigateByUrl("/drop-area");
+        this.file = { config: { segment: {} }} as FileInfo;
+        return;
       }
 
       this.file = this.fileService.files[idx];
-
+      // TODO: make a PR to add missing properties to videojs.PlayerOptions.
       const playerOptions = {
         sources: [{
           src:  this.file.path,
@@ -37,11 +42,15 @@ export class FileComponent implements OnInit, OnDestroy {
         fluid: false
       };
       videojs("video", playerOptions);
+
+      this.initialized = true;
     });
   }
 
   ngOnDestroy() {
-    videojs("video").dispose();
+    if (this.initialized) {
+      videojs("video").dispose();
+    }
   }
 
   getSegmentInfo(): string {
