@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from './file.service';
 import { FileInfo, Preset } from './file-info';
@@ -7,7 +7,7 @@ import * as videojs from 'videojs';
 @Component({
   templateUrl: 'scripts/file.component.html'
 })
-export class FileComponent implements OnInit {
+export class FileComponent implements OnInit, OnDestroy {
   file: FileInfo;
 
   constructor(
@@ -38,6 +38,10 @@ export class FileComponent implements OnInit {
       };
       videojs("video", playerOptions);
     });
+  }
+
+  ngOnDestroy() {
+    videojs("video").dispose();
   }
 
   getSegmentInfo(): string {
