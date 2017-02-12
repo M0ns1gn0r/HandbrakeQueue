@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FileService } from './file.service';
-import { FileInfo, TranscodeConfig, Preset } from './file-info';
+import { FileInfo, Preset } from './file-info';
 import * as videojs from 'videojs';
 
 @Component({
@@ -27,7 +27,7 @@ export class FileComponent implements OnInit, OnDestroy {
 
       if (this.fileService.files.length <= idx) {
         console.warn('The file with the passed "idx" parameter does not exist.');
-        this.router.navigateByUrl("/drop-area");
+        this.router.navigateByUrl('/drop-area');
         this.file = { config: { segment: {} }} as FileInfo;
         return;
       }
@@ -41,7 +41,7 @@ export class FileComponent implements OnInit, OnDestroy {
         }],
         fluid: false
       };
-      videojs("video", playerOptions);
+      videojs('video', playerOptions);
 
       this.initialized = true;
     });
@@ -49,7 +49,7 @@ export class FileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.initialized) {
-      videojs("video").dispose();
+      videojs('video').dispose();
     }
   }
 
