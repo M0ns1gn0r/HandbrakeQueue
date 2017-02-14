@@ -12,12 +12,12 @@
     <script src="systemjs.config.js"></script>
     <script>
       window.jQuery = window.$ = require("jQuery");
-      require("bootstrap");
+      require("./vendor/bootstrap.js");
       System.import('app').catch(function(err){ console.error(err); });
     </script>
 
     <link rel="stylesheet" href="node_modules/video.js/dist/video-js.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="vendor/bootstrap.css">
     <link rel="stylesheet" href="compiled/app.css">
   </head>
 
