@@ -4,33 +4,7 @@ import { QueueService } from './queue.service';
 import { FileService } from './file.service';
 import { FileInfo } from './file-info';
 
-@Component({
-  template: `
-  <div class="hq-flex-container">
-    <section
-      class="hq-drop-area"
-      fileDrop
-      [ngClass]="{'hq-drop-area--file-over': filesAreOver}"
-      [allowedExtensions]="allowedExtensions"
-      (filesOver)="onFilesOver($event)"
-      (filesDrop)="onFilesDrop($event)">
-      <p class="hq-drop-area_prompt" *ngIf="!files.length">
-        Drop files here
-      </p>
-      <div class="hq-file" *ngFor="let file of files; let idx = index">
-        <a [routerLink]="[ '/file', idx ]">
-          {{file.name}} ({{file.size}})
-        </a>
-      </div>
-    </section>
-    <button
-      class="hq-create-button"
-      [disabled]="!files.length"
-      (click)="createQueue()">
-      Create queue
-    </button>
-  </div>`
-})
+@Component({ templateUrl: 'scripts/drop-area.component.html' })
 export class DropAreaComponent {
   allowedExtensions = new Set(['.mp4', '.avi', '.mov', '.3gp']);
   filesAreOver = false;
