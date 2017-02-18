@@ -13,7 +13,7 @@
       <div>Drop files here</div>
     </div>
 
-    <div class="list-group">
+    <div *ngIf="files.length" class="list-group">
       <a class="list-group-item hq-drop-area_file"
         *ngFor="let file of files; let idx = index"
         [routerLink]="[ '/file', idx ]">
