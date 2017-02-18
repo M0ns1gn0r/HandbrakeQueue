@@ -36,4 +36,12 @@ export class DropAreaComponent {
     fs.writeFileSync('d:\\1\\output.hbq', queueXml);
     console.log('Queue created.');
   }
+
+  removeFile(fileIndex: number): boolean {
+    if (this.files.length <= fileIndex) {
+      throw new Error('File index is out of bounds.');
+    }
+    this.files.splice(fileIndex, 1);
+    return false;
+  }
 }
