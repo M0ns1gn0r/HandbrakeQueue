@@ -24,25 +24,30 @@ body
     order: 0
     flex: 1 1 auto
     align-self: auto
-    border: 1px dashed gray
+    height: 100%
 
 .hq-drop-area--file-over
-    background-color: lightgray
+    //background-color: lightgray
 
 .hq-drop-area_prompt
-    text-align: center
     font-size: large
     color: gray
-    margin-top: 1em
+    height: 100%
+    width: 100%
+    display: table
+    div
+        vertical-align: middle
+        display: table-cell
+        text-align: center
+
+.hq-drop-area_video-details p
+    margin-bottom: 0
 
 .hq-create-button
     margin-top: 0.5em
     align-self: flex-end
 
-.hq-file
-    margin: 0.75em
-    padding: 0.25em
-    background-color: #ddd
+.hq-drop-area_video
+    padding-right: 0
     video
         width: 100%
-        height: 100%

@@ -1,33 +1,43 @@
 <div class="hq-flex-container">
+
+
   <section
     class="hq-drop-area"
     fileDrop
     [ngClass]="{'hq-drop-area--file-over': filesAreOver}"
     [allowedExtensions]="allowedExtensions"
     (filesOver)="onFilesOver($event)"
-    (filesDrop)="onFilesDrop($event)">
-    <p class="hq-drop-area_prompt" *ngIf="!files.length">
-      Drop files here
-    </p>
+    (filesDrop)="onFilesDrop($event)"> 
+    
+    <div *ngIf="!files.length" class="hq-drop-area_prompt">
+      <div>Drop files here</div>
+    </div>
 
-    <div class="row hq-file"
-      *ngFor="let file of files; let idx = index"
-      [routerLink]="[ '/file', idx ]">
-      <div class="col-md-3 col-xs-4">
-        <video
-          [id]="'file_' + idx"
-          [src]="'file://' + file.path"
-          preload="metadata"
-          data-setup="{}">
-        </video>
-      </div>
-      <div class="col-md-9 col-xs-8">{{file.name}} ({{file.size}})</div>
+    <div class="list-group">
+      <a class="list-group-item"
+        *ngFor="let file of files; let idx = index"
+        [routerLink]="[ '/file', idx ]">
+        <div class="row">
+          <div class="col-md-2 col-xs-3 hq-drop-area_video">
+            <video
+              [id]="'file_' + idx"
+              [src]="'file://' + file.path"
+              preload="metadata"
+              data-setup="{}">
+            </video>
+          </div>
+          <div class="col-md-10 col-xs-9 hq-drop-area_video-details">
+            <p>{{file.name}}</p>
+            <p>{{file.size}}</p>
+          </div>
+        </div>
+      </a>
     </div>
 
   </section>
   <button
-    class="hq-create-button"
-    [disabled]="!files.length"
+    class="btn btn-primary hq-create-button"
+    *ngIf="files.length"
     (click)="createQueue()">
     Create queue
   </button>
