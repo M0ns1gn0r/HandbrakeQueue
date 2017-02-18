@@ -21,8 +21,9 @@
     <link rel="stylesheet" href="compiled/app.css">
   </head>
 
-  <body 
-  	ondragover="event.preventDefault();event.dataTransfer.dropEffect='none';"
+  <body
+    style="-webkit-user-select: none;user-select: none;"
+    ondragover="event.preventDefault();event.dataTransfer.dropEffect='none';"
     ondrop="event.preventDefault();">
     <div class="container-fluid hq-main-container">
       <my-app></my-app>
