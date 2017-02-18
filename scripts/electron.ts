@@ -17,7 +17,11 @@ class Main {
     }
 
     private static onReady() {
-        const w = new Main.BrowserWindow({width: 800, height: 600});
+        const w = new Main.BrowserWindow({
+            width: 800,
+            height: 600,
+            icon: __dirname + '/../icon.ico'
+        });
 
         Main.mainWindow = w;
         w.loadURL('file://' + __dirname + '/../index.html');
