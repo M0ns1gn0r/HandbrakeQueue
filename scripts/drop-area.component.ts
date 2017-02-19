@@ -1,10 +1,8 @@
 import * as fs from 'fs';
-import * as videojs from 'videojs';
 import { Component } from '@angular/core';
 import { QueueService } from './queue.service';
 import { FileService } from './file.service';
 import { FileInfo } from './file-info';
-declare const $: any;
 
 @Component({ templateUrl: 'scripts/drop-area.component.html' })
 export class DropAreaComponent {
