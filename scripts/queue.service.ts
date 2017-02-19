@@ -30,7 +30,7 @@ export class QueueService {
 
     private getRotation(rotate: number) {
         if (!rotate) {
-            return "";
+            return '';
         }
 
         let rotateValue;

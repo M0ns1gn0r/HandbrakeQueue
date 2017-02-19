@@ -9,7 +9,7 @@ export class FileInfo {
   constructor(public file: File) {
     this.name = file.name;
     this.path = file.path;
-    this.size = (file.size / (1024 * 1024)).toFixed(2) + ' Mb';
+    this.size = (file.size / (1024 * 1024)).toFixed(2) + ' MiB';
     this.config = new TranscodeConfig(file);
   }
 }
@@ -40,5 +40,5 @@ export enum Preset {
 
 export interface VideoSegment {
   firstSecond?: number;
-  lastSecond?: number
+  lastSecond?: number;
 }
