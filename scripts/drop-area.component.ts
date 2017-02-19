@@ -1,8 +1,10 @@
 import * as fs from 'fs';
+import * as videojs from 'videojs';
 import { Component } from '@angular/core';
 import { QueueService } from './queue.service';
 import { FileService } from './file.service';
 import { FileInfo } from './file-info';
+declare const $: any;
 
 @Component({ templateUrl: 'scripts/drop-area.component.html' })
 export class DropAreaComponent {
@@ -29,6 +31,15 @@ export class DropAreaComponent {
     });
   }
 
+  durationChange(event: Event) {
+    const video = event.target as HTMLVideoElement;
+    if (!video.duration) {
+      return;
+    }
+    const idx = +video.id.substr(5);
+    this.files[idx].duration = video.duration;
+  }
+
   createQueue(): void {
     const queueXml = this.queueService.create(this.files);
 
@@ -43,5 +54,11 @@ export class DropAreaComponent {
     }
     this.files.splice(fileIndex, 1);
     return false;
+  }
+
+  formatTime(totalSeconds: number) {
+    return new Intl
+      .DateTimeFormat('en-US', { minute: 'numeric', second: 'numeric' })
+      .format(new Date(totalSeconds * 1000));
   }
 }

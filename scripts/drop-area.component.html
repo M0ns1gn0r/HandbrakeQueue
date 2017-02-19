@@ -22,13 +22,13 @@
             <video
               [id]="'file_' + idx"
               [src]="'file://' + file.path"
-              preload="metadata"
-              data-setup="{}">
+              (durationchange)="durationChange($event)">
             </video>
           </div>
           <div class="col-md-10 col-xs-9 hq-drop-area_video-details">
             <p>{{file.name}}</p>
             <p>{{file.size}}</p>
+            <p *ngIf="file.duration">{{formatTime(file.duration)}}</p>
           </div>
         </div>
         <div class="btn btn-danger hq-remove-button" (click)="removeFile(idx)">

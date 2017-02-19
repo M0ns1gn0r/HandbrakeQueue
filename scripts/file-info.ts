@@ -4,6 +4,7 @@ export class FileInfo {
   name: string;
   path: string;
   size: string;
+  duration: number = 0;
   config: TranscodeConfig;
 
   constructor(public file: File) {
