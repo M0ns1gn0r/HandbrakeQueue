@@ -36,7 +36,7 @@
     "@types/videojs": "^5.16.0",
     "stylus": "^0.54.5",
     "tslint": "^3.15.1",
-    "typescript": "^2.1.4",
+    "typescript": "^2.1.6",
     "video.js": "^5.16.0"
   }
 }

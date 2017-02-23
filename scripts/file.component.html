@@ -9,44 +9,82 @@
                 </video>
             </div>
             <div class="col-xs-4 col-md-2">
-                <div>
-                    <strong>Rotate:</strong>
-                    <br/>
-                    <input name="rotate" type="radio" [value]="0"  [(ngModel)]="file.config.rotate">No<br/>
-                    <input name="rotate" type="radio" [value]="-90" [(ngModel)]="file.config.rotate">-90 degrees<br/>
-                    <input name="rotate" type="radio" [value]="90" [(ngModel)]="file.config.rotate">90 degrees<br/>
-                    <input name="rotate" type="radio" [value]="180" [(ngModel)]="file.config.rotate">180 degrees
+                <div class="form-group">
+                    <label class="control-label">Rotate</label>
+                    <div class="radio">
+                        <label>
+                            <input name="rotate" type="radio" [value]="0" [(ngModel)]="file.config.rotate">No
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="rotate" type="radio" [value]="-90" [(ngModel)]="file.config.rotate">&ndash;90 degrees
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="rotate" type="radio" [value]="90" [(ngModel)]="file.config.rotate">90 degrees
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="rotate" type="radio" [value]="180" [(ngModel)]="file.config.rotate">180 degrees
+                        </label>
+                    </div>
                 </div>
-                <div class="hq-file_preset">
-                    <strong>Preset:</strong>
-                    <br/>
-                    <input name="preset" type="radio" [value]="1" [(ngModel)]="file.config.preset">{{getPresetName(1)}}<br/>
-                    <input name="preset" type="radio" [value]="2" [(ngModel)]="file.config.preset">{{getPresetName(2)}}<br/>
-                    <input name="preset" type="radio" [value]="3" [(ngModel)]="file.config.preset">{{getPresetName(3)}}
+                <div class="form-group">
+                    <label class="control-label">Preset</label>
+                   <div class="radio">
+                        <label>
+                            <input name="preset" type="radio" [value]="1" [(ngModel)]="file.config.preset">{{getPresetName(1)}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="preset" type="radio" [value]="2" [(ngModel)]="file.config.preset">{{getPresetName(2)}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="preset" type="radio" [value]="3" [(ngModel)]="file.config.preset">{{getPresetName(3)}}
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="hq-file_target-path">
-                    <strong>Target path:</strong>
-                    <input name="targetPath" type="text"
-                        [(ngModel)]="file.config.targetPath">
-                </div>
-                <div class="hq-file_segment">
-                    <strong>Segment:</strong>
-                    <span>{{getSegmentInfo()}}</span>
-                    <br />
-                    From <input name="segmentFirst" type="number"
-                        style="width: 4em"
-                        [(ngModel)]="file.config.segment.firstSecond">
-                    till <input name="segmentLast" type="number"
-                        style="width: 4em"
-                        [(ngModel)]="file.config.segment.lastSecond">
-                    second.
-                </div>
+
+        <div style="margin-top:20px"></div>
+
+        <div class="form-group">
+            <label class="control-label" for="sourcePath">Source path</label>
+            <input name="sourcePath" id="sourcePath"
+                class="form-control"
+                type="text"
+                disabled
+                [value]="file.path">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="targetPath">Target path</label>
+            <input name="targetPath" id="targetPath"
+                class="form-control"
+                type="text"
+                [(ngModel)]="file.config.targetPath">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="segment">Segment</label>
+            <div id="segment" class="input-group">
+                <span class="input-group-addon">From</span>
+                <input name="segmentFirst" type="number"
+                    style="width: 3em"
+                    [(ngModel)]="file.config.segment.firstSecond">
+                till
+                <input name="segmentLast" type="number"
+                    style="width: 3em"
+                    [(ngModel)]="file.config.segment.lastSecond">
+                second.
             </div>
-        </div>        
+        </div>
+
         <div class="row">
             <div class="col-xs-12">
                 <a
