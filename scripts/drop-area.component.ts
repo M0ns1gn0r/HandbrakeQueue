@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { remote } from 'electron';
 import { Component } from '@angular/core';
 import { QueueService } from './queue.service';
 import { FileService } from './file.service';
@@ -40,10 +41,14 @@ export class DropAreaComponent {
 
   createQueue(): void {
     const queueXml = this.queueService.create(this.files);
-
-    // TODO: show a save file dialog.
-    fs.writeFileSync('d:\\1\\output.hbq', queueXml);
-    console.log('Queue created.');
+    const config: Electron.SaveDialogOptions = {
+      title: 'Create Queue',
+      defaultPath: 'queue.hbq'
+    };
+    remote.dialog.showSaveDialog(
+      remote.getCurrentWindow(),
+      config,
+      path => path && fs.writeFileSync(path, queueXml));
   }
 
   removeFile(fileIndex: number): boolean {
