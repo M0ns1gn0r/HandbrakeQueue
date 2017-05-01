@@ -23,12 +23,40 @@ export class TranscodeConfig {
   preset: Preset = Preset.Canon9X;
 
   constructor(file: File) {
-    const dirName  = path.dirname(file.path);
+    const fileName = this.parseFileName(file);
+    const dirName = path.dirname(file.path);
     if (dirName.toLowerCase().endsWith(path.sep + 'videosrc')) {
-      this.targetPath = path.join(dirName, '..', file.name);
+      this.targetPath = path.join(dirName, '..', fileName);
     } else {
-      this.targetPath = path.join(dirName, 'transcoded', file.name);
+      this.targetPath = path.join(dirName, 'transcoded', fileName);
     }
+  }
+
+  getTargetName(): string {
+    const { name , ext } = path.parse(this.targetPath);
+    return name + ext;
+  }
+
+  hasSegment(): boolean {
+    return !!this.segment.firstSecond || !!this.segment.lastSecond;
+  }
+
+  private parseFileName(file: File): string {
+    let fileName = path.basename(file.path);
+
+    const parts = new RegExp(/^(\d*)\s*---\s*(\d*)\s*(.*)/).exec(fileName);
+    if (parts && parts.length === 4) {
+      if (parts[1]) {
+        this.segment.firstSecond = +parts[1];
+      }
+      if (parts[2]) {
+        this.segment.lastSecond = +parts[2];
+      }
+      // The rest is the real file name.
+      fileName = parts[3];
+    }
+
+    return fileName;
   }
 }
 

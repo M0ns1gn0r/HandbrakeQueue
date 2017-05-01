@@ -24,9 +24,29 @@
             </video>
           </div>
           <div class="col-md-10 col-xs-9 hq-drop-area_video-details">
-            <p>{{file.name}}</p>
-            <p>{{file.size}}</p>
-            <p *ngIf="file.duration">{{formatTime(file.duration)}}</p>
+
+            <p *ngIf="!hasDifferentTargetName(file)">{{file.name}}</p>
+            <p *ngIf="hasDifferentTargetName(file)">
+              <span class="hq-drop-area_overriden">{{file.name}}</span>
+              &rarr;
+              <span>{{file.config.getTargetName()}}</span>
+            </p>
+
+            <p *ngIf="file.duration && !file.config.hasSegment()">{{formatTime(file.duration)}}</p>
+            <p *ngIf="file.duration && file.config.hasSegment()">
+              <span class="hq-drop-area_overriden">{{formatTime(file.duration)}}</span>
+              &rarr;
+              <span>{{formatSegment(file)}}</span>
+            </p>
+
+            <p *ngIf="file.config.rotate !== 0">
+              <span class="glyphicon glyphicon-repeat" style="font-size: smaller;"></span>
+              <span *ngIf="file.config.rotate < 0">&ndash;</span><!--
+              -->{{file.config.rotate > 0 ? file.config.rotate : -file.config.rotate}}°
+            </p>
+
+            <p *ngIf="getPresetName(file) !== 'Canon 9X'">{{getPresetName(file)}}</p>
+
           </div>
         </div>
         <div class="btn btn-danger hq-remove-button" (click)="removeFile(idx)">
