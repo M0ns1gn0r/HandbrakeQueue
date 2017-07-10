@@ -7,7 +7,8 @@
     "start": "electron compiled/electron.js",
     "compile": "tsc",
     "stylus": "stylus -w stylus/app.styl -o compiled/app.css",
-    "lint": "tslint ./scripts/**/*.ts -t verbose"
+    "lint": "tslint ./scripts/**/*.ts -t verbose",
+    "package": "electron-packager . HandbrakeQueue --package-manager yarn --out d:/ --electron-version 1.4.1 --overwrite --icon=./icon.ico --deref-symlinks false --verbose"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "author": "Monsignor",
@@ -21,22 +22,23 @@
     "@angular/platform-browser-dynamic": "~2.4.0",
     "@angular/router": "~3.4.0",
     "core-js": "^2.4.1",
-    "electron": "^1.4.1",
     "fileapi": "^2.0.21",
     "jquery": "^3.1.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.1",
     "systemjs": "0.19.40",
-    "zone.js": "^0.7.4"
+    "zone.js": "^0.7.4",
+    "video.js": "^5.16.0"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.35",
     "@types/electron": "^1.4.30",
     "@types/node": "^6.0.53",
     "@types/videojs": "^5.16.0",
+    "electron": "^1.4.1",
+    "electron-packager": "^8.7.2",
     "stylus": "^0.54.5",
     "tslint": "^3.15.1",
-    "typescript": "^2.1.6",
-    "video.js": "^5.16.0"
+    "typescript": "^2.1.6"
   }
 }
