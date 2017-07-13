@@ -4,11 +4,11 @@
   "description": "A utility to create queue files for Handbrake encoder.",
   "main": "electron.js",
   "scripts": {
-    "start": "electron compiled/electron.js",
+    "start": "electron.cmd compiled/electron.js",
     "compile": "tsc",
     "stylus": "stylus -w stylus/app.styl -o compiled/app.css",
     "lint": "tslint ./scripts/**/*.ts -t verbose",
-    "package": "electron-packager . HandbrakeQueue --package-manager yarn --out d:/ --electron-version 1.4.1 --overwrite --icon=./icon.ico --deref-symlinks false --verbose"
+    "package": "electron-packager . HandbrakeQueue --package-manager yarn --out d:/ --overwrite --icon=./icon.ico --deref-symlinks false --verbose"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "author": "Monsignor",
@@ -35,10 +35,10 @@
     "@types/electron": "^1.4.30",
     "@types/node": "^6.0.53",
     "@types/videojs": "^5.16.0",
-    "electron": "^1.4.1",
+    "electron": "1.6.0",
     "electron-packager": "^8.7.2",
     "stylus": "^0.54.5",
     "tslint": "^3.15.1",
-    "typescript": "^2.1.6"
+    "typescript": "^2.4.1"
   }
 }

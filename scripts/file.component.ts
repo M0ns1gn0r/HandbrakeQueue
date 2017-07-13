@@ -39,7 +39,8 @@ export class FileComponent implements OnInit, OnDestroy {
           src:  this.file.path,
           type: 'video/mp4'
         }],
-        fluid: false
+        fluid: false,
+        autoplay: false
       };
       videojs('video', playerOptions);
 

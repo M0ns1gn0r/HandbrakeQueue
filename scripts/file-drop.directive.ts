@@ -31,7 +31,7 @@ export class FileDropDirective {
 
     const transfer = event.dataTransfer;
 
-    if (this.getAllowedFiles(transfer.files).length === 0) {
+    if (this.getAllowedFiles(transfer.items).length === 0) {
       transfer.dropEffect = 'none';
       return;
     }
@@ -57,7 +57,7 @@ export class FileDropDirective {
     if (!transfer) {
       return;
     }
-    const files = this.getAllowedFiles(transfer.files);
+    const files = this.getAllowedFiles(transfer.items);
 
     this.filesOver.emit(false);
     this.filesDrop.emit(files);
@@ -68,8 +68,10 @@ export class FileDropDirective {
     event.stopPropagation();
   }
 
-  private getAllowedFiles(fileList: FileList): File[] {
-    const files: File[] = Array.prototype.slice.call(fileList);
+  private getAllowedFiles(fileList: DataTransferItemList): File[] {
+    const files: File[] = Array.prototype
+      .slice.call(fileList)
+      .map((i: DataTransferItem) => i.getAsFile());
     if (this.allowedExtensions.size === 0) {
       return files; // All files allowed.
     }
