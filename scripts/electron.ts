@@ -28,7 +28,7 @@ class Main {
         w.on('closed', Main.onClose);
 
         // Open the DevTools.
-        w.webContents.openDevTools({ mode: 'detach' });
+        // w.webContents.openDevTools({ mode: 'detach' });
 
         // Disable main menu.
         w.setMenu(null);
