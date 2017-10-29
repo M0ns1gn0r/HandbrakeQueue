@@ -8,7 +8,7 @@
     "compile": "tsc",
     "stylus": "stylus -w stylus/app.styl -o compiled/app.css",
     "lint": "tslint ./scripts/**/*.ts -t verbose",
-    "package": "electron-packager . HandbrakeQueue --package-manager yarn --out d:/ --overwrite --icon=./icon.ico --deref-symlinks false --verbose"
+    "package": "electron-packager . HandbrakeQueue --package-manager yarn --out \"d:/Portable software/\" --overwrite --icon=./icon.ico --deref-symlinks false --verbose"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "author": "Monsignor",
