@@ -20,7 +20,7 @@
             <video
               [id]="'file_' + idx"
               [src]="'file://' + file.path"
-              (durationchange)="durationChange($event)">
+              (durationchange)="onDurationChange($event)">
             </video>
           </div>
           <div class="col-md-10 col-xs-9 hq-drop-area_video-details">
