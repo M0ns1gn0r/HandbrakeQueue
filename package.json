@@ -11,7 +11,7 @@
     "lint": "tslint ./scripts/**/*.ts -t verbose",
     "package": "electron-packager . HandbrakeQueue --package-manager yarn --out \"d:/Portable software/\" --overwrite --icon=./icon.ico --deref-symlinks false --verbose"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/M0ns1gn0r/HandbrakeQueue",
   "author": "Monsignor",
   "dependencies": {
     "@angular/common": "~2.4.0",
@@ -26,20 +26,19 @@
     "fileapi": "^2.0.21",
     "jquery": "^3.1.1",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.1",
+    "rxjs": "5.5.6",
     "systemjs": "0.19.40",
     "zone.js": "^0.7.4",
-    "video.js": "^5.16.0"
+    "video.js": "^6.6.0"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.35",
-    "@types/electron": "^1.4.30",
     "@types/node": "^6.0.53",
-    "@types/videojs": "^5.16.0",
-    "electron": "1.6.0",
-    "electron-packager": "^8.7.2",
+    "@types/video.js": "^6.2.3",
+    "electron": "1.6.16",
+    "electron-packager": "^10.1.1",
     "stylus": "^0.54.5",
     "tslint": "^3.15.1",
-    "typescript": "^2.4.1"
+    "typescript": "^2.6.2"
   }
 }

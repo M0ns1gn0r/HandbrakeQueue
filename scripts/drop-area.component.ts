@@ -7,7 +7,7 @@ import { FileInfo, Preset } from './file-info';
 
 @Component({ templateUrl: 'scripts/drop-area.component.html' })
 export class DropAreaComponent {
-  allowedExtensions = new Set(['.mp4', '.avi', '.mov', '.3gp']);
+  allowedMimes = new Set(['video/mp4', 'video/avi', 'video/quicktime', 'video/3gpp']);
   filesAreOver = false;
   files: FileInfo[] = [];
 

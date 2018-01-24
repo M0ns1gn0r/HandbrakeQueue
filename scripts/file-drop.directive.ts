@@ -16,8 +16,8 @@ import * as path from 'path';
 
 @Directive({ selector: '[fileDrop]' })
 export class FileDropDirective {
-  /** A set of file extensions allowed to be dropped. Example: [".mp4", ".avi", ".mov"]. */
-  @Input() allowedExtensions = new Set<string>();
+  /** A set of mime types allowed to be dropped. Example: ["video/mp4"]. */
+  @Input() allowedMimes = new Set<string>();
   @Output() filesOver = new EventEmitter<boolean>();
   @Output() filesDrop = new EventEmitter<File[]>();
 
@@ -31,7 +31,7 @@ export class FileDropDirective {
 
     const transfer = event.dataTransfer;
 
-    if (this.getAllowedFiles(transfer.items).length === 0) {
+    if (!this.asArray(transfer.items).some(i => this.checkMimeSupported(i.type))) {
       transfer.dropEffect = 'none';
       return;
     }
@@ -68,16 +68,18 @@ export class FileDropDirective {
     event.stopPropagation();
   }
 
+  private checkMimeSupported(mime: string): boolean {
+    return this.allowedMimes.size === 0 || this.allowedMimes.has(mime);
+  }
+
   private getAllowedFiles(fileList: DataTransferItemList): File[] {
-    const files: File[] = Array.prototype
-      .slice.call(fileList)
-      .map((i: DataTransferItem) => i.getAsFile());
-    if (this.allowedExtensions.size === 0) {
-      return files; // All files allowed.
-    }
-    return files.filter(f => {
-      const extension = path.extname(f.name).toLowerCase();
-      return this.allowedExtensions.has(extension);
-    });
+    return this
+      .asArray(fileList)
+      .filter(i => this.checkMimeSupported(i.type))
+      .map(i => i.getAsFile());
+  }
+
+  private asArray(fileList: DataTransferItemList): DataTransferItem[] {
+    return Array.prototype.slice.call(fileList);
   }
 }

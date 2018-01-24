@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FileService } from './file.service';
 import { FileInfo, Preset } from './file-info';
-import * as videojs from 'videojs';
+import * as videojs from 'video.js';
 
 @Component({
   templateUrl: 'scripts/file.component.html'

@@ -3,7 +3,7 @@
     class="hq-drop-area"
     fileDrop
     [ngClass]="{'hq-drop-area--file-over': filesAreOver}"
-    [allowedExtensions]="allowedExtensions"
+    [allowedMimes]="allowedMimes"
     (filesOver)="onFilesOver($event)"
     (filesDrop)="onFilesDrop($event)"> 
     
