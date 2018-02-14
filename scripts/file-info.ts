@@ -20,7 +20,6 @@ export class TranscodeConfig {
   targetPath: string;
   segment: VideoSegment = {};
   rotate: -90 | 0 | 90 | 180 = 0;
-  preset: Preset = Preset.Canon9X;
 
   constructor(file: File) {
     const fileName = this.parseFileName(file);
@@ -58,13 +57,6 @@ export class TranscodeConfig {
 
     return fileName;
   }
-}
-
-/** Available encoding presets. */
-export enum Preset {
-  Canon9X = 1,
-  IPad,
-  Nikon
 }
 
 export interface VideoSegment {

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FileService } from './file.service';
-import { FileInfo, Preset } from './file-info';
+import { FileInfo } from './file-info';
 import * as videojs from 'video.js';
 
 @Component({
@@ -66,9 +66,5 @@ export class FileComponent implements OnInit, OnDestroy {
       return `From ${seg.firstSecond}-th second till the end.`;
     }
     return `From ${seg.firstSecond}-th till ${seg.lastSecond}-th second.`;
-  }
-
-  getPresetName(preset: Preset): string {
-    return Preset[preset];
   }
 }

@@ -45,8 +45,6 @@
               -->{{file.config.rotate > 0 ? file.config.rotate : -file.config.rotate}}°
             </p>
 
-            <p *ngIf="getPresetName(file) !== 'Canon 9X'">{{getPresetName(file)}}</p>
-
           </div>
         </div>
         <div class="btn btn-danger hq-remove-button" (click)="removeFile(idx)">

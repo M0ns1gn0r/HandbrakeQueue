@@ -33,7 +33,6 @@ export class QueueService {
         const targetPath = c.targetPath;
         const videoSegment = this.getVideoSegment(c.segment);
         const rotation = c.rotate === -90 ? 270 : c.rotate;
-        // TODO: take into account the selected preset.
 
         // The schema corresponds to Handbrake 1.07.
         return `

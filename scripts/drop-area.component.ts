@@ -3,7 +3,7 @@ import { remote } from 'electron';
 import { Component } from '@angular/core';
 import { QueueService } from './queue.service';
 import { FileService } from './file.service';
-import { FileInfo, Preset } from './file-info';
+import { FileInfo } from './file-info';
 
 @Component({ templateUrl: 'scripts/drop-area.component.html' })
 export class DropAreaComponent {
@@ -75,18 +75,5 @@ export class DropAreaComponent {
 
   hasDifferentTargetName(file: FileInfo): boolean {
     return file.config.getTargetName() !== file.name;
-  }
-
-  getPresetName(file: FileInfo): string {
-    switch (file.config.preset) {
-      case Preset.IPad:
-        return 'iPad';
-      case Preset.Canon9X:
-        return 'Canon 9X';
-      case Preset.Nikon:
-        return 'Nikon';
-      default:
-        return 'Unknown!';
-    }
   }
 }
