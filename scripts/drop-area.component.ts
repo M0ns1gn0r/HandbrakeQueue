@@ -52,6 +52,10 @@ export class DropAreaComponent {
       path => path && fs.writeFileSync(path, queueXml));
   }
 
+  clearQueue(): void {
+    this.files = [];
+  }
+
   removeFile(fileIndex: number): boolean {
     if (this.files.length <= fileIndex) {
       throw new Error('File index is out of bounds.');

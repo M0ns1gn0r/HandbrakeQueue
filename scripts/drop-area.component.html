@@ -54,10 +54,14 @@
     </div>
 
   </section>
-  <button
-    class="btn btn-primary hq-create-button"
-    *ngIf="files.length"
-    (click)="createQueue()">
-    Create queue
-  </button>
+
+  <div class="hq-buttons-panel" *ngIf="files.length">
+    <button class="btn btn-danger" (click)="clearQueue()">
+      Clear
+    </button>
+    <button class="btn btn-primary" (click)="createQueue()">
+      Create queue
+    </button>
+  </div>
+
 </div>
