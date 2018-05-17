@@ -67,13 +67,25 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row hq-file_buttons">
             <div class="col-xs-12">
                 <a
-                    class="btn btn-primary pull-right hq-file_back"
+                    class="btn btn-default"
                     routerLink="/drop-area">
                     Back
                 </a>
+                <button
+                    class="btn btn-primary pull-right"
+                    [disabled]="!canGoNext()"
+                    (click)="next()">
+                    Next
+                </button>
+                <button
+                    class="btn btn-default pull-right hq-file_prev"
+                    [disabled]="!canGoPrev()"
+                    (click)="prev()">
+                    Prev
+                </button>
             </div>
         </div>
     </form>

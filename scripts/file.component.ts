@@ -8,7 +8,11 @@ import * as videojs from 'video.js';
   templateUrl: 'scripts/file.component.html'
 })
 export class FileComponent implements OnInit, OnDestroy {
-  file: FileInfo;
+  /** The currently displayed file. */
+  public file: FileInfo;
+
+  /** Index of the currently displayed file. */
+  private idx: number;
   private initialized = false;
 
   constructor(
@@ -23,28 +27,28 @@ export class FileComponent implements OnInit, OnDestroy {
       if (!idxString) {
         throw new Error('The "idx" parameter was not specified.');
       }
-      const idx = +idxString;
-
-      if (this.fileService.files.length <= idx) {
+      this.idx = +idxString;
+      if (this.fileService.files.length <= this.idx) {
         console.warn('The file with the passed "idx" parameter does not exist.');
         this.router.navigateByUrl('/drop-area');
         this.file = { config: { segment: {} }} as FileInfo;
         return;
       }
 
-      this.file = this.fileService.files[idx];
-      // TODO: make a PR to add missing properties to videojs.PlayerOptions.
-      const playerOptions = {
-        sources: [{
-          src:  this.file.path,
-          type: 'video/mp4'
-        }],
-        fluid: false,
-        autoplay: false
-      };
-      videojs('video', playerOptions);
+      this.file = this.fileService.files[this.idx];
 
-      this.initialized = true;
+      const videoSource = { src: this.file.path, type: 'video/mp4' };
+      if (this.initialized) {
+        videojs('video').src(videoSource);
+      }
+      else {
+        videojs('video', {
+            sources: [ videoSource ],
+            fluid: false,
+            autoplay: false
+        });
+        this.initialized = true;
+      }
     });
   }
 
@@ -66,5 +70,21 @@ export class FileComponent implements OnInit, OnDestroy {
       return `From ${seg.firstSecond}-th second till the end.`;
     }
     return `From ${seg.firstSecond}-th till ${seg.lastSecond}-th second.`;
+  }
+
+  canGoPrev(): boolean {
+    return this.idx > 0;
+  }
+
+  canGoNext(): boolean {
+    return this.idx < this.fileService.files.length - 1;
+  }
+
+  prev(): void {
+    this.router.navigateByUrl(`/file/${this.idx - 1}`);
+  }
+
+  next(): void {
+    this.router.navigateByUrl(`/file/${this.idx + 1}`);
   }
 }
