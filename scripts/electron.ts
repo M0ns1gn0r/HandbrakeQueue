@@ -1,5 +1,9 @@
 import { app, BrowserWindow } from 'electron';
-import * as path from 'path';
+
+/** Indicates that the app was packaged and is running in the "production" mode. */
+function isPackaged(): boolean {
+    return !__dirname.endsWith('compiled');
+}
 
 class Main {
     static mainWindow: Electron.BrowserWindow;
@@ -28,11 +32,13 @@ class Main {
         });
 
         Main.mainWindow = w;
-        w.loadURL('file://' + path.resolve(__dirname, '..', 'index.html'));
+        w.loadURL(`file://${__dirname}/${isPackaged() ? '' : '../'}index.html`);
         w.on('closed', Main.onClose);
 
         // Open the DevTools.
-        w.webContents.openDevTools({ mode: 'detach' });
+        if (!isPackaged()) {
+            w.webContents.openDevTools({ mode: 'detach' });
+        }
 
         // Disable main menu.
         w.setMenu(null);

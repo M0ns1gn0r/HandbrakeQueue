@@ -9,7 +9,7 @@
     "compile": "tsc",
     "stylus": "stylus -w stylus/app.styl -o compiled/app.css",
     "lint": "tslint ./scripts/**/*.ts -t verbose",
-    "package": "tsc && electron-packager ./ HandbrakeQueue --no-tmpdir --package-manager yarn --out \"d:/Portable software/\" --overwrite --icon=./icon.ico --verbose"
+    "package": "tsc && electron-packager . HandbrakeQueue --no-tmpdir --out \"d:/Portable software/\" --overwrite --icon=./icon.ico --verbose"
   },
   "repository": "https://github.com/M0ns1gn0r/HandbrakeQueue",
   "author": "Monsignor",
