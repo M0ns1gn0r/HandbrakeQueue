@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FileService } from './file.service';
-import { FileInfo } from './file-info';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as videojs from 'video.js';
+import { FileInfo } from './file-info';
+import { FileService } from './file.service';
 
 @Component({
   templateUrl: 'scripts/file.component.html'
@@ -14,14 +15,17 @@ export class FileComponent implements OnInit, OnDestroy {
   /** Index of the currently displayed file. */
   private idx: number;
   private initialized = false;
+  private originalTitle = "";
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private fileService: FileService) {
+    private fileService: FileService,
+    private titleService: Title) {
   }
 
   ngOnInit() {
+    this.originalTitle = this.titleService.getTitle();
     this.route.params.subscribe(ps => {
       const idxString = ps['idx'];
       if (!idxString) {
@@ -34,6 +38,9 @@ export class FileComponent implements OnInit, OnDestroy {
         this.file = { config: { segment: {} }} as FileInfo;
         return;
       }
+
+      this.titleService.setTitle(
+        `${this.originalTitle} | Video ${this.idx + 1} of ${this.fileService.files.length}`);
 
       this.file = this.fileService.files[this.idx];
 
@@ -53,6 +60,7 @@ export class FileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.titleService.setTitle(this.originalTitle);
     if (this.initialized) {
       videojs('video').dispose();
     }
