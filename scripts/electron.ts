@@ -23,8 +23,8 @@ class Main {
 
     private static onReady() {
         const w = new Main.BrowserWindow({
-            width: 800,
-            height: 625,
+            width: 1020,
+            height: 950,
             icon: __dirname + '/../icon.ico',
             webPreferences: {
                 nodeIntegration: true

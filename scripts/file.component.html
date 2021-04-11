@@ -1,44 +1,19 @@
 <div class="container-fluid hq-file_container">
     <form class="hq-file_form">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12" style="margin-top: 5px; margin-bottom: 13px;">
                 <a
                     class="btn btn-default"
                     routerLink="/drop-area">
                     Back
                 </a>
             </div>
-            <div class="col-xs-8 col-md-10" style="margin-top: 7px">
+            <div class="col-xs-12">
                 <video
                     id="video"
                     class="video-js vjs-fluid vjs-16-9"
                     controls>
                 </video>
-            </div>
-            <div class="col-xs-4 col-md-2">
-                <div class="form-group">
-                    <label class="control-label">Rotate</label>
-                    <div class="radio">
-                        <label>
-                            <input name="rotate" type="radio" [value]="0" [(ngModel)]="file.config.rotate">No
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input name="rotate" type="radio" [value]="-90" [(ngModel)]="file.config.rotate">&ndash;90 degrees
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input name="rotate" type="radio" [value]="90" [(ngModel)]="file.config.rotate">90 degrees
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input name="rotate" type="radio" [value]="180" [(ngModel)]="file.config.rotate">180 degrees
-                        </label>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -59,18 +34,51 @@
                 type="text"
                 [(ngModel)]="file.config.targetPath">
         </div>
-        <div class="form-group">
-            <label class="control-label" for="segment">Segment</label>
-            <div id="segment" class="input-group">
-                <span class="input-group-addon">From</span>
-                <input name="segmentFirst" type="number"
-                    style="width: 3em"
-                    [(ngModel)]="file.config.segment.firstSecond">
-                till
-                <input name="segmentLast" type="number"
-                    style="width: 3em"
-                    [(ngModel)]="file.config.segment.lastSecond">
-                second.
+
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="control-label">Rotate</label>
+                    <div class="input-group">
+                        <div class="radio-inline" style="padding-left: 0;">
+                            <label>
+                                <input name="rotate" type="radio" [value]="0" [(ngModel)]="file.config.rotate">No
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label>
+                                <input name="rotate" type="radio" [value]="-90" [(ngModel)]="file.config.rotate">&ndash;90&deg;
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label>
+                                <input name="rotate" type="radio" [value]="90" [(ngModel)]="file.config.rotate">90&deg;
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label>
+                                <input name="rotate" type="radio" [value]="180" [(ngModel)]="file.config.rotate">180&deg;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="control-label" for="segment">Segment</label>
+                    <div id="segment" class="input-group">
+                        <span>From</span>
+                        <input name="segmentFirst" type="number"
+                            style="width: 3em"
+                            [(ngModel)]="file.config.segment.firstSecond">
+                        till
+                        <input name="segmentLast" type="number"
+                            style="width: 3em"
+                            [(ngModel)]="file.config.segment.lastSecond">
+                        second.
+                    </div>
+                </div>
             </div>
         </div>
 
