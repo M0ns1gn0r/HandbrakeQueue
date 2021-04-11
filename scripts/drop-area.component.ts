@@ -46,10 +46,9 @@ export class DropAreaComponent {
       title: 'Create Queue',
       defaultPath: 'queue.hbq'
     };
-    remote.dialog.showSaveDialog(
-      remote.getCurrentWindow(),
-      config,
-      path => path && fs.writeFileSync(path, queueXml));
+    remote.dialog
+      .showSaveDialog(remote.getCurrentWindow(), config)
+      .then(x => x.filePath && fs.writeFileSync(x.filePath, queueXml));
   }
 
   clearQueue(): void {

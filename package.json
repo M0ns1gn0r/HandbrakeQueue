@@ -5,11 +5,11 @@
   "license": "MIT",
   "main": "electron.js",
   "scripts": {
-    "start": "electron.cmd compiled/electron.js",
+    "start": "tsc && electron.cmd compiled/electron.js",
     "compile": "tsc",
     "stylus": "stylus -w stylus/app.styl -o compiled/app.css",
     "lint": "tslint ./scripts/**/*.ts -t verbose",
-    "package": "tsc && electron-packager . HandbrakeQueue --package-manager yarn --out \"d:/Portable software/\" --overwrite --icon=./icon.ico --deref-symlinks false --verbose"
+    "package": "tsc && electron-packager ./ HandbrakeQueue --no-tmpdir --package-manager yarn --out \"d:/Portable software/\" --overwrite --icon=./icon.ico --verbose"
   },
   "repository": "https://github.com/M0ns1gn0r/HandbrakeQueue",
   "author": "Monsignor",
@@ -35,8 +35,8 @@
     "@types/core-js": "^0.9.35",
     "@types/node": "^6.0.53",
     "@types/video.js": "^6.2.3",
-    "electron": "1.6.16",
-    "electron-packager": "^11.0.1",
+    "electron": "6.1.12",
+    "electron-packager": "^15.2.0",
     "stylus": "^0.54.5",
     "tslint": "^5.9.1",
     "typescript": "^2.7.1"

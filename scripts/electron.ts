@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+import * as path from 'path';
 
 class Main {
     static mainWindow: Electron.BrowserWindow;
@@ -20,15 +21,18 @@ class Main {
         const w = new Main.BrowserWindow({
             width: 800,
             height: 625,
-            icon: __dirname + '/../icon.ico'
+            icon: __dirname + '/../icon.ico',
+            webPreferences: {
+                nodeIntegration: true
+            }
         });
 
         Main.mainWindow = w;
-        w.loadURL('file://' + __dirname + '/../index.html');
+        w.loadURL('file://' + path.resolve(__dirname, '..', 'index.html'));
         w.on('closed', Main.onClose);
 
         // Open the DevTools.
-        // w.webContents.openDevTools({ mode: 'detach' });
+        w.webContents.openDevTools({ mode: 'detach' });
 
         // Disable main menu.
         w.setMenu(null);
