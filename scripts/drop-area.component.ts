@@ -30,7 +30,7 @@ export class DropAreaComponent {
     });
   }
 
-  /** Executed when VideoJs loaded the video and calculated its duration.*/
+  /** Executed when the video is loaded and its duration is calculated.*/
   onDurationChange(event: Event) {
     const video = event.target as HTMLVideoElement;
     if (!video.duration) {
