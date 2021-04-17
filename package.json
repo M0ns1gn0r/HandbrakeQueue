@@ -24,7 +24,7 @@
     "@angular/router": "~3.4.0",
     "core-js": "^2.4.1",
     "fileapi": "^2.0.21",
-    "jquery": "^3.1.1",
+    "jquery": "^3.5.0",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.5.6",
     "systemjs": "0.19.40",
