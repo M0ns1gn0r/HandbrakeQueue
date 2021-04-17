@@ -24,6 +24,26 @@ export class FileComponent implements OnInit, OnDestroy {
     private titleService: Title) {
   }
 
+  private loadFile() {
+    this.titleService.setTitle(
+      `${this.originalTitle} | Video ${this.idx + 1} of ${this.fileService.files.length}`);
+
+    this.file = this.fileService.files[this.idx];
+
+    const videoSource = { src: this.file.path, type: 'video/mp4' };
+    if (this.initialized) {
+      videojs('video').src(videoSource);
+    }
+    else {
+      videojs('video', {
+          sources: [ videoSource ],
+          fluid: false,
+          autoplay: false
+      });
+      this.initialized = true;
+    }
+  }
+
   ngOnInit() {
     this.originalTitle = this.titleService.getTitle();
     this.route.params.subscribe(ps => {
@@ -39,23 +59,7 @@ export class FileComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.titleService.setTitle(
-        `${this.originalTitle} | Video ${this.idx + 1} of ${this.fileService.files.length}`);
-
-      this.file = this.fileService.files[this.idx];
-
-      const videoSource = { src: this.file.path, type: 'video/mp4' };
-      if (this.initialized) {
-        videojs('video').src(videoSource);
-      }
-      else {
-        videojs('video', {
-            sources: [ videoSource ],
-            fluid: false,
-            autoplay: false
-        });
-        this.initialized = true;
-      }
+      this.loadFile();
     });
   }
 
@@ -94,5 +98,23 @@ export class FileComponent implements OnInit, OnDestroy {
 
   next(): void {
     this.router.navigateByUrl(`/file/${this.idx + 1}`);
+  }
+
+  /** Navigates back to the list. */
+  back(): void {
+    this.router.navigateByUrl("/drop-area");
+  }
+
+  remove(): void {
+    const removeImpl = () => this.fileService.files.splice(this.idx, 1);
+
+    if (this.canGoNext()) {
+      removeImpl();
+      // Reload the file data as the index now points to the next one.
+      this.loadFile();
+    } else {
+      removeImpl();
+      this.back();
+    }
   }
 }

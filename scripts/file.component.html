@@ -2,11 +2,16 @@
     <form class="hq-file_form">
         <div class="row">
             <div class="col-xs-12" style="margin-top: 5px; margin-bottom: 13px;">
-                <a
+                <button
                     class="btn btn-default"
-                    routerLink="/drop-area">
+                    (click)="back()">
                     Back
-                </a>
+                </button>
+                <button
+                    class="btn btn-danger pull-right"
+                    (click)="remove()">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
             </div>
             <div class="col-xs-12">
                 <video
@@ -84,11 +89,6 @@
 
         <div class="row hq-file_buttons">
             <div class="col-xs-12">
-                <a
-                    class="btn btn-default"
-                    routerLink="/drop-area">
-                    Back
-                </a>
                 <button
                     class="btn btn-primary pull-right"
                     [disabled]="!canGoNext()"
