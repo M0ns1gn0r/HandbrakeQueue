@@ -106,14 +106,12 @@ export class FileComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    const removeImpl = () => this.fileService.files.splice(this.idx, 1);
-
     if (this.canGoNext()) {
-      removeImpl();
+      this.fileService.remove(this.idx);
       // Reload the file data as the index now points to the next one.
       this.loadFile();
     } else {
-      removeImpl();
+      this.fileService.remove(this.idx);
       this.back();
     }
   }

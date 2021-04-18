@@ -9,13 +9,14 @@ import { FileInfo } from './file-info';
 export class DropAreaComponent {
   allowedMimes = new Set(['video/mp4', 'video/avi', 'video/quicktime', 'video/3gpp']);
   filesAreOver = false;
-  files: FileInfo[] = [];
 
   constructor(
-    fileService: FileService,
+    private fileService: FileService,
     private queueService: QueueService) {
+  }
 
-    this.files = fileService.files;
+  get files() {
+    return this.fileService.files;
   }
 
   onFilesOver(filesOver: boolean): void {
@@ -23,11 +24,7 @@ export class DropAreaComponent {
   }
 
   onFilesDrop(fs: File[]): void {
-    fs.forEach(newFile => {
-      if (!this.files.some(fi => fi.file.path === newFile.path)) {
-        this.files.push(new FileInfo(newFile));
-      }
-    });
+    fs.forEach(f => this.fileService.add(f));
   }
 
   /** Executed when the video is loaded and its duration is calculated.*/
@@ -52,14 +49,11 @@ export class DropAreaComponent {
   }
 
   clearQueue(): void {
-    this.files = [];
+    this.fileService.clear();
   }
 
   removeFile(fileIndex: number): boolean {
-    if (this.files.length <= fileIndex) {
-      throw new Error('File index is out of bounds.');
-    }
-    this.files.splice(fileIndex, 1);
+    this.fileService.remove(fileIndex);
     return false;
   }
 
