@@ -1,11 +1,20 @@
-import * as fs from 'fs';
-import { remote } from 'electron';
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { QueueService } from './queue.service';
-import { FileService } from './file.service';
+import { RouterLink } from '@angular/router';
+import { dialog, getCurrentWindow } from '@electron/remote';
+// TODO: Remove this once we have a real path implementation.
+//import * as fs from 'fs';
+import { FileDropDirective } from './file-drop.directive';
 import { FileInfo } from './file-info';
+import { FileService } from './file.service';
+import { QueueService } from './queue.service';
 
-@Component({ templateUrl: 'scripts/drop-area.component.html' })
+@Component({
+  selector: 'drop-area',
+  standalone: true,
+  imports: [RouterLink, NgClass, FileDropDirective],
+  templateUrl: './drop-area.component.html' 
+})
 export class DropAreaComponent {
   allowedMimes = new Set(['video/mp4', 'video/avi', 'video/quicktime', 'video/3gpp']);
   filesAreOver = false;
@@ -43,9 +52,10 @@ export class DropAreaComponent {
       title: 'Create Queue',
       defaultPath: 'queue.hbq'
     };
-    remote.dialog
-      .showSaveDialog(remote.getCurrentWindow(), config)
-      .then(x => x.filePath && fs.writeFileSync(x.filePath, queueXml));
+    alert('Not implemented');
+    /*dialog
+      .showSaveDialog(getCurrentWindow(), config)
+      .then(x => x.filePath && fs.writeFileSync(x.filePath, queueXml));*/
   }
 
   clearQueue(): void {

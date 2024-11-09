@@ -1,6 +1,8 @@
+import { Injectable } from '@angular/core';
 import { FileInfo, VideoSegment } from './file-info';
 
 /** Represents a service that creates Handbrake Queues. */
+@Injectable({ providedIn: 'root' })
 export class QueueService {
 
     create(files: FileInfo[]): string {

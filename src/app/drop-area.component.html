@@ -1,0 +1,84 @@
+<div class="hq-flex-container">
+  <section
+    class="hq-drop-area"
+    fileDrop
+    [ngClass]="{'hq-drop-area--file-over': filesAreOver}"
+    [allowedMimes]="allowedMimes"
+    (filesOver)="onFilesOver($event)"
+    (filesDrop)="onFilesDrop($event)"> 
+    
+    @if (!files.length) {
+      <div class="hq-drop-area_prompt">
+        <div>Drop files here</div>
+      </div>
+    }
+
+    @if (files.length) {
+      <div class="list-group">
+        @for (file of files; track file.path; let idx = $index) {
+          <a class="list-group-item hq-drop-area_file" [routerLink]="[ '/file', idx ]">
+            <div class="row">
+              <div class="col-md-2 col-xs-3 hq-drop-area_video">
+                <video
+                  [id]="'file_' + idx"
+                  [src]="'file://' + file.path"
+                  (durationchange)="onDurationChange($event)">
+                </video>
+              </div>
+              <div class="col-md-10 col-xs-9 hq-drop-area_video-details">
+
+                @if (!hasDifferentTargetName(file)) {
+                  <p>{{file.name}}</p>
+                } @else {
+                  <p>
+                    <span class="hq-drop-area_overriden">{{file.name}}</span>
+                    &rarr;
+                    <span>{{file.config.getTargetName()}}</span>
+                  </p>
+                }
+
+                @if (file.duration) {
+                  @if (!file.config.hasSegment()) {
+                  <p>{{formatTime(file.duration)}}</p>
+                  } @else {
+                  <p>
+                    <span class="hq-drop-area_overriden">{{formatTime(file.duration)}}</span>
+                    &rarr;
+                    <span>{{formatSegment(file)}}</span>
+                  </p>
+                  }
+                }
+
+                @if (file.config.rotate !== 0) {
+                  <p>
+                    <span class="glyphicon glyphicon-repeat" style="font-size: smaller;"></span>
+                    @if (file.config.rotate < 0) {
+                      &ndash;{{file.config.rotate > 0 ? file.config.rotate : -file.config.rotate}}°
+                    }
+                  </p>
+                }
+
+              </div>
+            </div>
+            <div class="btn btn-danger hq-remove-button" (click)="removeFile(idx)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </div>
+          </a>
+        }
+      </div>
+    }
+
+  </section>
+
+  @if (files.length) {
+    <div class="hq-buttons-panel">
+      <button class="btn btn-danger" (click)="clearQueue()">
+        Clear
+      </button>
+      <button class="btn btn-primary" (click)="createQueue()">
+        Create queue
+      </button>
+    </div>
+  }
+
+</div>

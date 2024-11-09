@@ -1,4 +1,13 @@
-import * as path from 'path';
+//import * as path from 'path';
+
+// TODO: Remove this once we have a real path implementation.
+const path = {
+  dirname: (p: string) => p,
+  join: (...paths: string[]) => paths.join('/'),
+  basename: (p: string) => p,
+  parse: (p: string) => ({ name: p, ext: '' }),
+  sep: '/'
+}
 
 export class FileInfo {
   name: string;

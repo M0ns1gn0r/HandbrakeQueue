@@ -12,9 +12,10 @@ import {
   Input
 } from '@angular/core';
 
-import * as path from 'path';
-
-@Directive({ selector: '[fileDrop]' })
+@Directive({ 
+  standalone: true,
+  selector: '[fileDrop]' 
+})
 export class FileDropDirective {
   /** A set of mime types allowed to be dropped. Example: ["video/mp4"]. */
   @Input() allowedMimes = new Set<string>();
@@ -31,6 +32,10 @@ export class FileDropDirective {
 
     const transfer = event.dataTransfer;
 
+    if (!transfer) {
+      return;
+    }
+
     if (!this.asArray(transfer.items).some(i => this.checkMimeSupported(i.type))) {
       transfer.dropEffect = 'none';
       return;
@@ -42,7 +47,7 @@ export class FileDropDirective {
 
   @HostListener('dragleave', [ '$event' ])
   onDragLeave(event: DragEvent): void {
-    if (event.currentTarget === this.element[0]) {
+    if (event.currentTarget === this.element.nativeElement) {
       return;
     }
 
@@ -76,7 +81,8 @@ export class FileDropDirective {
     return this
       .asArray(fileList)
       .filter(i => this.checkMimeSupported(i.type))
-      .map(i => i.getAsFile());
+      .map(i => i.getAsFile())
+      .filter((f): f is File => f !== null);
   }
 
   private asArray(fileList: DataTransferItemList): DataTransferItem[] {

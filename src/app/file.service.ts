@@ -1,6 +1,8 @@
+import { Injectable } from '@angular/core';
 import { FileInfo } from './file-info';
 
 /** Represents a service which contains video files being currently processed. */
+@Injectable({ providedIn: 'root' })
 export class FileService {
   files: FileInfo[] = [];
 

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as videojs from 'video.js';
@@ -6,14 +7,17 @@ import { FileInfo } from './file-info';
 import { FileService } from './file.service';
 
 @Component({
-  templateUrl: 'scripts/file.component.html'
+  selector: 'hq-file',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './file.component.html',
 })
 export class FileComponent implements OnInit, OnDestroy {
   /** The currently displayed file. */
-  public file: FileInfo;
+  public file: FileInfo = { config: { segment: {} }} as FileInfo;
 
   /** Index of the currently displayed file. */
-  private idx: number;
+  private idx: number = 0;
   private initialized = false;
   private originalTitle = "";
 
@@ -32,10 +36,10 @@ export class FileComponent implements OnInit, OnDestroy {
 
     const videoSource = { src: this.file.path, type: 'video/mp4' };
     if (this.initialized) {
-      videojs('video').src(videoSource);
+      videojs.default('video').src(videoSource);
     }
     else {
-      videojs('video', {
+      videojs.default('video', {
           sources: [ videoSource ],
           fluid: false,
           autoplay: false
@@ -55,7 +59,6 @@ export class FileComponent implements OnInit, OnDestroy {
       if (this.fileService.files.length <= this.idx) {
         console.warn('The file with the passed "idx" parameter does not exist.');
         this.router.navigateByUrl('/drop-area');
-        this.file = { config: { segment: {} }} as FileInfo;
         return;
       }
 
@@ -66,11 +69,15 @@ export class FileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.titleService.setTitle(this.originalTitle);
     if (this.initialized) {
-      videojs('video').dispose();
+      videojs.default('video').dispose();
     }
   }
-
+/*
   getSegmentInfo(): string {
+    if (!this.file) {
+      return '';
+    }
+
     const seg = this.file.config.segment;
     if (!seg.firstSecond && !seg.lastSecond) {
       return 'Full video';
@@ -83,7 +90,7 @@ export class FileComponent implements OnInit, OnDestroy {
     }
     return `From ${seg.firstSecond}-th till ${seg.lastSecond}-th second.`;
   }
-
+*/
   canGoPrev(): boolean {
     return this.idx > 0;
   }
