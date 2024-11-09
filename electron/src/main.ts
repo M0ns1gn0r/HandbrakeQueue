@@ -18,7 +18,7 @@ const createWindow = (): void => {
     width: 1020,
     height: 950,
     resizable: true,
-    //icon: __dirname + '/../icon.ico',
+    icon: path.join(__dirname, '../../dist/browser/favicon.ico'),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
