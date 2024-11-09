@@ -20,8 +20,9 @@ const createWindow = (): void => {
     resizable: true,
     //icon: __dirname + '/../icon.ico',
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js')
     },
   })
 
@@ -68,3 +69,12 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
+
+ipcMain.handle('write-file', async (event, { filePath, content }) => {
+  try {
+    await fs.promises.writeFile(filePath, content);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: (error as Error).message };
+  }
+});

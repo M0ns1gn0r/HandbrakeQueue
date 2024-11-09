@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { dialog, getCurrentWindow } from '@electron/remote';
 // TODO: Remove this once we have a real path implementation.
@@ -7,6 +7,7 @@ import { dialog, getCurrentWindow } from '@electron/remote';
 import { FileDropDirective } from './file-drop.directive';
 import { FileInfo } from './file-info';
 import { FileService } from './file.service';
+import { IoService } from './io.service';
 import { QueueService } from './queue.service';
 
 @Component({
@@ -19,10 +20,9 @@ export class DropAreaComponent {
   allowedMimes = new Set(['video/mp4', 'video/avi', 'video/quicktime', 'video/3gpp']);
   filesAreOver = false;
 
-  constructor(
-    private fileService: FileService,
-    private queueService: QueueService) {
-  }
+  private fileService = inject(FileService);
+  private queueService = inject(QueueService);
+  private ioService = inject(IoService);
 
   get files() {
     return this.fileService.files;
@@ -42,20 +42,27 @@ export class DropAreaComponent {
     if (!video.duration) {
       return;
     }
-    const idx = +video.id.substr(5);
+    const idx = +video.id.substring(5);
     this.files[idx].duration = video.duration;
   }
 
-  createQueue(): void {
+  async createQueue(): Promise<void> {
     const queueXml = this.queueService.create(this.files);
     const config: Electron.SaveDialogOptions = {
       title: 'Create Queue',
       defaultPath: 'queue.hbq'
     };
-    alert('Not implemented');
-    /*dialog
-      .showSaveDialog(getCurrentWindow(), config)
-      .then(x => x.filePath && fs.writeFileSync(x.filePath, queueXml));*/
+    /*const res = await dialog.showSaveDialog(getCurrentWindow(), config);
+    if (!res.filePath) {
+      return;
+    }*/
+    const res = { filePath: 'test-queue.hbq' };
+    const writeRes = await this.ioService.writeFile(res.filePath, queueXml);
+    if (!writeRes.success) {
+      console.error("Failed to write file", writeRes.error);
+      return;
+    }
+    this.clearQueue();
   }
 
   clearQueue(): void {
