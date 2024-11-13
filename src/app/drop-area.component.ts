@@ -1,13 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { dialog, getCurrentWindow } from '@electron/remote';
-// TODO: Remove this once we have a real path implementation.
-//import * as fs from 'fs';
+import { ElectronService } from './electron.service';
 import { FileDropDirective } from './file-drop.directive';
 import { FileInfo } from './file-info';
 import { FileService } from './file.service';
-import { IoService } from './io.service';
 import { QueueService } from './queue.service';
 
 @Component({
@@ -22,7 +19,7 @@ export class DropAreaComponent {
 
   private fileService = inject(FileService);
   private queueService = inject(QueueService);
-  private ioService = inject(IoService);
+  private electronService = inject(ElectronService);
 
   get files() {
     return this.fileService.files;
@@ -48,16 +45,14 @@ export class DropAreaComponent {
 
   async createQueue(): Promise<void> {
     const queueXml = this.queueService.create(this.files);
-    const config: Electron.SaveDialogOptions = {
+    const res = await this.electronService.showSaveDialog({
       title: 'Create Queue',
       defaultPath: 'queue.hbq'
-    };
-    /*const res = await dialog.showSaveDialog(getCurrentWindow(), config);
+    });
     if (!res.filePath) {
       return;
-    }*/
-    const res = { filePath: 'test-queue.hbq' };
-    const writeRes = await this.ioService.writeFile(res.filePath, queueXml);
+    }
+    const writeRes = await this.electronService.writeFile(res.filePath, queueXml);
     if (!writeRes.success) {
       console.error("Failed to write file", writeRes.error);
       return;

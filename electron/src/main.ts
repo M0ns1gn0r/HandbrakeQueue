@@ -1,4 +1,4 @@
-import { BrowserWindow, app, ipcMain  } from 'electron'
+import { BrowserWindow, app, ipcMain, dialog } from 'electron'
 import * as fs from 'fs'
 import * as path from 'path'
 
@@ -77,4 +77,8 @@ ipcMain.handle('write-file', async (event, { filePath, content }) => {
   } catch (error) {
     return { success: false, error: (error as Error).message };
   }
+});
+
+ipcMain.handle('show-save-dialog', (event, options) => {
+    return dialog.showSaveDialog(options);
 });
