@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ElectronService } from './electron.service';
+import { dialog, fs } from './electron';
 import { FileDropDirective } from './file-drop.directive';
 import { FileInfo } from './file-info';
 import { FileService } from './file.service';
@@ -19,7 +19,6 @@ export class DropAreaComponent {
 
   private fileService = inject(FileService);
   private queueService = inject(QueueService);
-  private electronService = inject(ElectronService);
 
   get files() {
     return this.fileService.files;
@@ -45,14 +44,14 @@ export class DropAreaComponent {
 
   async createQueue(): Promise<void> {
     const queueXml = this.queueService.create(this.files);
-    const res = await this.electronService.showSaveDialog({
+    const res = await dialog.showSaveDialog({
       title: 'Create Queue',
       defaultPath: 'queue.hbq'
     });
     if (!res.filePath) {
       return;
     }
-    const writeRes = await this.electronService.writeFile(res.filePath, queueXml);
+    const writeRes = await fs.writeFile(res.filePath, queueXml);
     if (!writeRes.success) {
       console.error("Failed to write file", writeRes.error);
       return;

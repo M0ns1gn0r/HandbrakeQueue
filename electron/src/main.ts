@@ -70,7 +70,7 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
 
-ipcMain.handle('write-file', async (event, { filePath, content }) => {
+ipcMain.handle('fs:writeFile', async (event, { filePath, content }) => {
   try {
     await fs.promises.writeFile(filePath, content);
     return { success: true };
@@ -79,6 +79,11 @@ ipcMain.handle('write-file', async (event, { filePath, content }) => {
   }
 });
 
-ipcMain.handle('show-save-dialog', (event, options) => {
-    return dialog.showSaveDialog(options);
-});
+ipcMain.handle('dialog:showSaveDialog', (event, options) => dialog.showSaveDialog(options));
+
+ipcMain.on('path:dirname', (event, p) => event.returnValue = path.dirname(p));
+ipcMain.on('path:basename', (event, p) => event.returnValue = path.basename(p));
+ipcMain.on('path:join', (event, paths) => event.returnValue = path.join(...paths));
+ipcMain.on('path:parse', (event, p) => event.returnValue = path.parse(p));
+ipcMain.on('path:sep', (event) => event.returnValue = path.sep);
+
