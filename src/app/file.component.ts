@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as videojs from 'video.js';
+import videojs from 'video.js';
 import { FileInfo } from './file-info';
 import { FileService } from './file.service';
 
@@ -36,10 +36,10 @@ export class FileComponent implements OnInit, OnDestroy {
 
     const videoSource = { src: this.file.path, type: 'video/mp4' };
     if (this.initialized) {
-      videojs.default('video').src(videoSource);
+      videojs('video').src(videoSource);
     }
     else {
-      videojs.default('video', {
+      videojs('video', {
           sources: [ videoSource ],
           fluid: false,
           autoplay: false
@@ -69,28 +69,10 @@ export class FileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.titleService.setTitle(this.originalTitle);
     if (this.initialized) {
-      videojs.default('video').dispose();
+      videojs('video').dispose();
     }
   }
-/*
-  getSegmentInfo(): string {
-    if (!this.file) {
-      return '';
-    }
 
-    const seg = this.file.config.segment;
-    if (!seg.firstSecond && !seg.lastSecond) {
-      return 'Full video';
-    }
-    if (!seg.firstSecond) {
-      return `From the beginning till ${seg.lastSecond}-th second.`;
-    }
-    if (!seg.lastSecond) {
-      return `From ${seg.firstSecond}-th second till the end.`;
-    }
-    return `From ${seg.firstSecond}-th till ${seg.lastSecond}-th second.`;
-  }
-*/
   canGoPrev(): boolean {
     return this.idx > 0;
   }
