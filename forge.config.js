@@ -1,6 +1,6 @@
 module.exports = {
   packagerConfig: {
-    icon: "src/assets/favicon.ico",
+    icon: "src/favicon",
     asar: true,
     ignore: [
       "^/[.].+",
@@ -21,7 +21,7 @@ module.exports = {
       config: {
         name: "handbrake-queue",
         title: "Handbrake Queue",
-        setupIcon: "src/assets/icons/favicon.ico",
+        setupIcon: "src/favicon.ico",
       },
     },
   ],
