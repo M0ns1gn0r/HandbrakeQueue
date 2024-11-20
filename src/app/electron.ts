@@ -1,6 +1,7 @@
 const electron = (window as any).electron;
 
 export const fs = {
+  getPathForFile: (file: File) => electron.fs.getPathForFile(file),
   writeFile: (filePath: string, content: string): Promise<{ success: boolean, error?: string }> =>
     electron.fs.writeFile(filePath, content)
 }

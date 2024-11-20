@@ -1,4 +1,4 @@
-import { path } from "./electron";
+import { fs, path } from "./electron";
 
 export class FileInfo {
   name: string;
@@ -9,7 +9,7 @@ export class FileInfo {
 
   constructor(public file: File) {
     this.name = file.name;
-    this.path = file.path;
+    this.path = fs.getPathForFile(file);
     this.size = (file.size / (1024 * 1024)).toFixed(2) + ' MiB';
     this.config = new TranscodeConfig(file);
   }
@@ -22,8 +22,9 @@ export class TranscodeConfig {
   rotate: -90 | 0 | 90 | 180 = 0;
 
   constructor(file: File) {
-    const fileName = this.parseFileName(file);
-    const dirName = path.dirname(file.path);
+    const filePath = fs.getPathForFile(file);
+    const fileName = this.parseFileName(filePath);
+    const dirName = path.dirname(filePath);
     if (dirName.toLowerCase().endsWith(path.sep + 'videosrc')) {
       this.targetPath = path.join(dirName, '..', fileName);
     } else {
@@ -40,8 +41,8 @@ export class TranscodeConfig {
     return !!this.segment.firstSecond || !!this.segment.lastSecond;
   }
 
-  private parseFileName(file: File): string {
-    let fileName = path.basename(file.path);
+  private parseFileName(filePath: string): string {
+    let fileName = path.basename(filePath);
 
     const parts = new RegExp(/^(\d*)\s*---\s*(\d*)\s*(.*)/).exec(fileName);
     if (parts && parts.length === 4) {

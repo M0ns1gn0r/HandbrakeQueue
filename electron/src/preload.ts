@@ -1,7 +1,8 @@
-import { contextBridge, ipcRenderer } from 'electron';
+import { contextBridge, ipcRenderer, webUtils } from 'electron';
 
 contextBridge.exposeInMainWorld('electron', {
     fs: {
+        getPathForFile: (file: File) => webUtils.getPathForFile(file),
         writeFile: (filePath: string, content: string) => ipcRenderer.invoke('fs:writeFile', { filePath, content })
     },
     dialog: {
@@ -13,5 +14,6 @@ contextBridge.exposeInMainWorld('electron', {
         join: (...paths: string[]) => ipcRenderer.sendSync('path:join', paths),
         parse: (p: string) => ipcRenderer.sendSync('path:parse', p),
         sep: () => ipcRenderer.sendSync('path:sep')
-    }
+    },
+        
 });
