@@ -25,7 +25,7 @@ export class TranscodeConfig {
     const filePath = fs.getPathForFile(file);
     const fileName = this.parseFileName(filePath);
     const dirName = path.dirname(filePath);
-    if (dirName.toLowerCase().endsWith(path.sep + 'videosrc')) {
+    if (dirName.toLowerCase().endsWith(path.sep() + 'videosrc')) {
       this.targetPath = path.join(dirName, '..', fileName);
     } else {
       this.targetPath = path.join(dirName, 'transcoded', fileName);

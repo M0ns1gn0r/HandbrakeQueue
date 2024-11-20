@@ -29,5 +29,5 @@ export const path = {
   basename: (p: string): string => electron.path.basename(p),
   join: (...paths: string[]): string => electron.path.join(...paths),
   parse: (p: string): PathParseResult => electron.path.parse(p),
-  sep: (): "\\" | "/" => electron.path.sep
+  sep: (): "\\" | "/" => electron.path.sep(),
 }
