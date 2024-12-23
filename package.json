@@ -29,8 +29,6 @@
     "@angular/router": "^19.0.0",
     "@electron/remote": "^2.1.2",
     "electron-squirrel-startup": "^1.0.1",
-    "rxjs": "^7.8.1",
-    "tslib": "^2.8.1",
     "zone.js": "^0.15.0",
     "video.js": "^8.19.1"
   },
@@ -55,7 +53,6 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-n": "^17.13.2",
     "eslint-plugin-promise": "^7.1.0",
-    "postcss": "^8.4.49",
-    "ts-node": "^10.9.2"
+    "postcss": "^8.4.49"
   }
 }
